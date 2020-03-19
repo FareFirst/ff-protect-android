@@ -6,4 +6,8 @@
     <string name="sign_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unkown_error">Unknown error</string>
+    <string name="sign_out">Sign out</string>
+    <string name="welcome">Welcome</string>
+    <string name="failed_to_sign_out">Failed to sign out</string>
+    <string name="please_wait">Please wait</string>
 </resources>

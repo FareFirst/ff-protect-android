@@ -1,56 +1,44 @@
 package com.amahop.farefirst.ffcovidprotect
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.AuthUI.IdpConfig.PhoneBuilder
-import com.firebase.ui.auth.ErrorCodes
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
-import java.util.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    companion object {
-        const val TAG = "MainActivity"
-        const val RC_SIGN_IN = 1
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        setupToolbar()
+        setupViews()
         handleAuth()
     }
 
+    private fun setupViews() {
+        btnSignIn.setOnClickListener(this)
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.setTitle(R.string.welcome)
+    }
+
     private fun handleAuth() {
-        val auth = FirebaseAuth.getInstance()
-        if (auth.currentUser != null) {
-            showMainScreen()
+        if (AuthManger.isSignedIn()) {
+            showHomeScreen()
         }
     }
 
-    private fun showSignInScreen() {
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(
-                    Arrays.asList(
-                        PhoneBuilder().build()
-                    )
-                )
-                .build(),
-            RC_SIGN_IN
-        )
+    private fun onClickSignIn() {
+        AuthManger.requestSignIn(this)
     }
 
-    private fun showMainScreen() {
-        showMessage(R.string.welcome_home)
+    private fun showHomeScreen() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
         finish()
     }
 
@@ -64,21 +52,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-            if (resultCode == Activity.RESULT_OK) {
-                showMainScreen()
-            } else { // Sign in failed
-                if (response == null) { // User pressed back button
-                    showMessage(R.string.sign_cancelled)
-                    return
-                }
-                if (response.error!!.errorCode == ErrorCodes.NO_NETWORK) {
-                    showMessage(R.string.no_internet_connection)
-                    return
-                }
-                showMessage(R.string.unkown_error)
-                Log.e(TAG, "Sign-in error: ", response.error)
+        AuthManger.handleAuthActivityResult(
+            requestCode,
+            resultCode,
+            data
+        ) { isSuccess, errorMessageRId ->
+            if (isSuccess) {
+                showHomeScreen()
+            } else if (errorMessageRId != null) {
+                showMessage(errorMessageRId)
             }
         }
     }
@@ -87,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (v == null) return
 
         when (v.id) {
-            R.id.btnSignIn -> showSignInScreen()
+            R.id.btnSignIn -> onClickSignIn()
         }
     }
 }
