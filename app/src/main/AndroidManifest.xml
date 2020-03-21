@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amahop.farefirst.ffcovidprotect">
+    package="com.amahop.farefirst.ffprotect">
 
     <application
         android:allowBackup="true"
@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.amahop.farefirst.ffprotect.HomeActivity" />
+        <activity android:name="com.amahop.farefirst.ffprotect.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

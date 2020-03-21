@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffcovidprotect
+package com.amahop.farefirst.ffprotect
 
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseSettings
@@ -52,7 +52,11 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, BeaconConsumer {
         AuthManger.requestSignOut(this) {
             btnSignOut?.isEnabled = true
             btnSignOut?.setText(R.string.sign_out)
-            Toast.makeText(this, R.string.failed_to_sign_out, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                R.string.failed_to_sign_out,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

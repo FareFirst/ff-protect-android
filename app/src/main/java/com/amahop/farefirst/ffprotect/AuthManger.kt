@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffcovidprotect
+package com.amahop.farefirst.ffprotect
 
 import android.app.Activity
 import android.content.Intent
@@ -65,14 +65,23 @@ object AuthManger {
                 listener(true, null)
             } else { // Sign in failed
                 if (response == null) { // User pressed back button
-                    listener(false, R.string.sign_cancelled)
+                    listener(
+                        false,
+                        R.string.sign_cancelled
+                    )
                     return
                 }
                 if (response.error!!.errorCode == ErrorCodes.NO_NETWORK) {
-                    listener(false, R.string.no_internet_connection)
+                    listener(
+                        false,
+                        R.string.no_internet_connection
+                    )
                     return
                 }
-                listener(false, R.string.unkown_error)
+                listener(
+                    false,
+                    R.string.unknown_error
+                )
                 Log.e(TAG, "Sign-in error: ", response.error)
             }
         }
