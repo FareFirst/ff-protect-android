@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "941715306284",
+    "firebase_url": "https://ff-protect-debug.firebaseio.com",
+    "project_id": "ff-protect-debug",
+    "storage_bucket": "ff-protect-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941715306284:android:da6c1fc4dcef11564fde89",
+        "android_client_info": {
+          "package_name": "com.amahop.farefirst.ffprotect.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941715306284-8fh2dlooags9hm3bptc4jiejap7jt6ds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amahop.farefirst.ffprotect.debug",
+            "certificate_hash": "aa24feea221d050becdb4dd275431415b79860b6"
+          }
+        },
+        {
+          "client_id": "941715306284-n1hq0oginihhbe0eoiet1iqadc7m4eh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsZobpaVRM3xrqZWaqcfnl6l3SM6S8EDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941715306284-n1hq0oginihhbe0eoiet1iqadc7m4eh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
