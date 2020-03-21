@@ -7,14 +7,19 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 object AuthManger {
     const val RC_SIGN_IN = 1001 // Should be globally unique
     const val TAG = "AuthManger"
 
-    fun isSignedIn(): Boolean {
+    fun getCurrentUser(): FirebaseUser? {
         val auth = FirebaseAuth.getInstance()
-        return auth.currentUser != null
+        return auth.currentUser
+    }
+
+    fun isSignedIn(): Boolean {
+        return getCurrentUser() != null
     }
 
     fun requestSignIn(activity: Activity) {
