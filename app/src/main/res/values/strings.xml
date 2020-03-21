@@ -10,4 +10,7 @@
     <string name="welcome">Welcome</string>
     <string name="failed_to_sign_out">Failed to sign out</string>
     <string name="please_wait">Please wait</string>
+    <string name="app_bg_service_notification_channel_title">Background Service Info</string>
+    <string name="app_bg_service_notification_channel_description">Information related running background services</string>
+    <string name="tracking_service_notification_text">Scanning nearby for your safety</string>
 </resources>

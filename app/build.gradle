@@ -29,6 +29,15 @@ android {
             debuggable true
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -42,4 +51,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'org.altbeacon:android-beacon-library:2.16.4'
     implementation "androidx.work:work-runtime-ktx:2.3.4"
+    implementation "androidx.concurrent:concurrent-futures-ktx:1.1.0-alpha01"
 }
