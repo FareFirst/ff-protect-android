@@ -17,7 +17,7 @@ fun getTrackerRunningNotification(context: Context): Notification {
         NotificationCompat.Builder(context, getNotificationChannelId(context))
             .setSmallIcon(R.drawable.ic_ff_notification)
             .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            .setContentText(context.getString(R.string.app_name))
+            .setContentTitle(context.getString(R.string.app_name))
             .setContentText(context.getString(R.string.tracking_service_notification_text))
 
     builder.setContentIntent(getPendingIntent(context))
