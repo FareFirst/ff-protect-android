@@ -3,15 +3,15 @@ package com.amahop.farefirst.ffprotect.tracker
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.location.Location
 import android.util.Log
-import com.amahop.farefirst.ffprotect.AuthManger
-import com.amahop.farefirst.ffprotect.WorkerHelper
 import com.amahop.farefirst.ffprotect.db.DBProvider
-import com.amahop.farefirst.ffprotect.remoteconfig.RemoteConfigManager
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 import com.amahop.farefirst.ffprotect.tracker.exceptions.AppBlockedException
 import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledException
-import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
+import com.amahop.farefirst.ffprotect.tracker.exceptions.LocationPermissionNotGrantedException
+import com.amahop.farefirst.ffprotect.utils.*
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.altbeacon.beacon.Beacon
@@ -28,11 +28,18 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     private var savedTrackerDistanceMap: HashMap<String, Double> = HashMap()
 
     fun start(tag: String, isForegroundRequest: Boolean) {
-        handleBluetoothRequiredNotification(this.context, isForegroundRequest)
         if (RemoteConfigManager.isAppBlocked()) {
             WorkerHelper.cancelAllPeriodicWorkers(context)
             throw AppBlockedException()
         }
+
+        if (!PermissionHelper.isLocationPermissionGranted()) {
+            throw LocationPermissionNotGrantedException()
+        }
+
+        handleBluetoothRequiredNotification(this.context, isForegroundRequest)
+
+
         if (!BluetoothHelper.isBluetoothEnabled()) {
             throw BluetoothNotEnabledException()
         }
@@ -79,26 +86,33 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
 
     override fun onBeaconServiceConnect() {
         beaconManager?.removeAllRangeNotifiers()
-        beaconManager?.addRangeNotifier { beacons, _ ->
-            handleBeaconsFound(beacons)
-        }
 
-        AuthManger.getCurrentUser()?.let { currentUser ->
-            beaconManager?.startRangingBeaconsInRegion(
-                Region(
-                    currentUser.uid,
-                    null,
-                    null,
-                    null
+        LocationHelper.requestLocation(this.context) { location ->
+            AuthManger.getCurrentUser()?.let { currentUser ->
+                beaconManager?.addRangeNotifier { beacons, _ ->
+                    handleBeaconsFound(currentUser, beacons, location)
+                }
+
+                beaconManager?.startRangingBeaconsInRegion(
+                    Region(
+                        currentUser.uid,
+                        null,
+                        null,
+                        null
+                    )
                 )
-            )
-        } ?: kotlin.run {
-            Log.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
+            } ?: kotlin.run {
+                Log.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
+            }
         }
     }
 
     @Synchronized
-    private fun handleBeaconsFound(beacons: Collection<Beacon>) {
+    private fun handleBeaconsFound(
+        currentUser: FirebaseUser,
+        beacons: Collection<Beacon>,
+        location: Location?
+    ) {
         val trackers: ArrayList<Tracker> = ArrayList()
         for (beacon in beacons) {
             Log.d(
@@ -108,11 +122,14 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
 
             beacon.id1?.let {
                 val t = Tracker(
+                    trackedForUid = currentUser.uid,
                     trackerUuid = it.toString(),
                     bluetoothAddress = beacon.bluetoothAddress,
                     bluetoothName = beacon.bluetoothName,
                     distance = beacon.distance,
-                    rssi = beacon.rssi
+                    rssi = beacon.rssi,
+                    latitude = location?.latitude,
+                    longitude = location?.longitude
                 )
 
                 val existingDistance = savedTrackerDistanceMap[t.trackerUuid]

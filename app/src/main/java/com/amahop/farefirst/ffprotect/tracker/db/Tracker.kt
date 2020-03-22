@@ -6,11 +6,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "trackers", indices = [Index(value = ["createdAt"])])
 data class Tracker(
+    val trackedForUid: String,
     val trackerUuid: String,
     val bluetoothAddress: String?,
     val bluetoothName: String?,
     val distance: Double?,
-    val rssi: Int?
+    val rssi: Int?,
+    val latitude: Double?,
+    val longitude: Double?
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

@@ -4,7 +4,7 @@ import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.util.Log
-import com.amahop.farefirst.ffprotect.AuthManger
+import com.amahop.farefirst.ffprotect.utils.AuthManger
 import org.altbeacon.beacon.Beacon
 import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.BeaconTransmitter

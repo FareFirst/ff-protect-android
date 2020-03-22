@@ -20,4 +20,8 @@
         <key>background_scan_period</key>
         <value>5000</value>
     </entry>
+    <entry>
+        <key>sync_base_url</key>
+        <value>https://api.github.com/</value>
+    </entry>
 </defaultsMap>

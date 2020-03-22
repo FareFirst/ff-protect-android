@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.amahop.farefirst.ffprotect.remoteconfig.RemoteConfigManager
+import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
+import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 
 class SplashScreenActivity : AppCompatActivity() {
     private var isActivityDestroyed = false

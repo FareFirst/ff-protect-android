@@ -9,6 +9,8 @@ object Settings {
     private const val TAG = "Settings"
 
     private const val PREF_KEY_NO_BLUETOOTH_NOTIFICATION = "no_bluetooth_notification"
+    private const val PREF_KEY_ALLOW_TRACK_LOCATION = "allow_track_location"
+    private const val PREF_KEY_FCM_TOKEN = "fcm_token"
 
     private var context: Context? = null
 
@@ -35,5 +37,25 @@ object Settings {
 
     fun isAllowedToShowBluetoothNotification(): Boolean {
         return getSP().getBoolean(PREF_KEY_NO_BLUETOOTH_NOTIFICATION, true)
+    }
+
+    fun setAllowTrackLocation(value: Boolean) {
+        val editor = getSP().edit()
+        editor.putBoolean(PREF_KEY_ALLOW_TRACK_LOCATION, value)
+        editor.apply()
+    }
+
+    fun isAllowedToTrackLocation(): Boolean {
+        return getSP().getBoolean(PREF_KEY_ALLOW_TRACK_LOCATION, true)
+    }
+
+    fun setFCMToken(value: String) {
+        val editor = getSP().edit()
+        editor.putString(PREF_KEY_FCM_TOKEN, value)
+        editor.apply()
+    }
+
+    fun getFCMToken(): String? {
+        return getSP().getString(PREF_KEY_FCM_TOKEN, null)
     }
 }

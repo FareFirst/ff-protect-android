@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
+import com.amahop.farefirst.ffprotect.utils.AuthManger
+import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {

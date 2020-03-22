@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffprotect.remoteconfig
+package com.amahop.farefirst.ffprotect.utils
 
 import android.util.Log
 import com.amahop.farefirst.ffprotect.BuildConfig
@@ -52,6 +52,7 @@ object RemoteConfigManager {
     private const val RC_KEY_FOREGROUND_SCAN_PERIOD = "foreground_scan_period"
     private const val RC_KEY_BACKGROUND_BETWEEN_SCAN_PERIOD = "background_between_scan_period"
     private const val RC_KEY_BACKGROUND_SCAN_PERIOD = "background_scan_period"
+    private const val RC_KEY_SYNC_BASE_URL = "sync_base_url"
 
     fun isAppBlocked(): Boolean {
         return Firebase.remoteConfig.getBoolean(RC_KEY_IS_APP_BLOCKED)
@@ -71,5 +72,9 @@ object RemoteConfigManager {
 
     fun getBackgroundScanPeriod(): Long {
         return Firebase.remoteConfig.getLong(RC_KEY_BACKGROUND_SCAN_PERIOD)
+    }
+
+    fun getSyncBaseUrl(): String {
+        return Firebase.remoteConfig.getString(RC_KEY_SYNC_BASE_URL)
     }
 }

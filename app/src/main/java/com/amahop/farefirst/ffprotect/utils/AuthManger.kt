@@ -1,11 +1,15 @@
-package com.amahop.farefirst.ffprotect
+package com.amahop.farefirst.ffprotect.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.amahop.farefirst.ffprotect.MainActivity
+import com.amahop.farefirst.ffprotect.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -41,7 +45,9 @@ object AuthManger {
         AuthUI.getInstance().signOut(activity).addOnCompleteListener { task ->
 
             if (task.isSuccessful) {
-                WorkerHelper.cancelAllPeriodicWorkers(activity)
+                WorkerHelper.cancelAllPeriodicWorkers(
+                    activity
+                )
                 val intent = Intent(
                     activity,
                     MainActivity::class.java
@@ -55,6 +61,7 @@ object AuthManger {
     }
 
     fun handleAuthActivityResult(
+        context: Context,
         requestCode: Int,
         resultCode: Int,
         data: Intent?,
@@ -63,6 +70,9 @@ object AuthManger {
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
+                getCurrentUser()?.let { currentUser ->
+                    FirebaseAnalytics.getInstance(context).setUserId(currentUser.uid)
+                }
                 listener(true, null)
             } else { // Sign in failed
                 if (response == null) { // User pressed back button
@@ -84,6 +94,19 @@ object AuthManger {
                     R.string.unknown_error
                 )
                 Log.e(TAG, "Sign-in error: ", response.error)
+            }
+        }
+    }
+
+    fun getBearerToken(forceRefresh: Boolean = false, listener: (bearerToken: String?) -> Unit) {
+        getCurrentUser()?.let { currentUser ->
+            currentUser.getIdToken(forceRefresh).addOnCompleteListener {
+                val token = it.result?.token
+                if (token != null) {
+                    listener("Bearer $token")
+                } else {
+                    listener(null)
+                }
             }
         }
     }
