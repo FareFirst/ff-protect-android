@@ -4,13 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
-import com.amahop.farefirst.ffprotect.tracker.TrackerWorker
 import kotlinx.android.synthetic.main.activity_home.*
-import java.util.concurrent.TimeUnit
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -31,17 +26,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         trackerManager = TrackerManager(this)
         trackerManager?.start(TAG, true)
 
-        val trackerWorkRequest = PeriodicWorkRequestBuilder<TrackerWorker>(
-            15,
-            TimeUnit.MINUTES
-        ).build()
-
-        WorkManager.getInstance(this)
-            .enqueueUniquePeriodicWork(
-                TrackerWorker.TAG,
-                ExistingPeriodicWorkPolicy.KEEP,
-                trackerWorkRequest
-            )
+        WorkerHelper.scheduleAllPeriodicWorkers(this)
     }
 
     private fun setupViews() {

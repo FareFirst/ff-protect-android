@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.util.Log
 import com.amahop.farefirst.ffprotect.AuthManger
+import com.amahop.farefirst.ffprotect.WorkerHelper
 import com.amahop.farefirst.ffprotect.db.DBProvider
+import com.amahop.farefirst.ffprotect.remoteconfig.RemoteConfigManager
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
+import com.amahop.farefirst.ffprotect.tracker.exceptions.AppBlockedException
 import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledException
 import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
 import kotlinx.coroutines.GlobalScope
@@ -26,6 +29,10 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
 
     fun start(tag: String, isForegroundRequest: Boolean) {
         handleBluetoothRequiredNotification(this.context, isForegroundRequest)
+        if (RemoteConfigManager.isAppBlocked()) {
+            WorkerHelper.cancelAllPeriodicWorkers(context)
+            throw AppBlockedException()
+        }
         if (!BluetoothHelper.isBluetoothEnabled()) {
             throw BluetoothNotEnabledException()
         }
@@ -50,10 +57,10 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
                 getTrackerRunningNotification(this.context),
                 TRACKER_RUNNING_NOTIFICATION_ID
             )
-            it.foregroundBetweenScanPeriod = 20000
-            it.foregroundScanPeriod = 5000
-            it.backgroundBetweenScanPeriod = 30000
-            it.backgroundScanPeriod = 5000
+            it.foregroundBetweenScanPeriod = RemoteConfigManager.getForegroundBetweenScanPeriod()
+            it.foregroundScanPeriod = RemoteConfigManager.getForegroundScanPeriod()
+            it.backgroundBetweenScanPeriod = RemoteConfigManager.getBackgroundBetweenScanPeriod()
+            it.backgroundScanPeriod = RemoteConfigManager.getBackgroundScanPeriod()
             it.bind(this)
         }
     }

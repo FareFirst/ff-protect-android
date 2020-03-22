@@ -17,4 +17,5 @@
     <string name="tracking_service_notification_text">Scanning nearby for your safety</string>
     <string name="turn_on_bluetooth_notification_title">Please turn on bluetooth</string>
     <string name="turn_on_bluetooth_notification_description">%1$s requires bluetooth to be turn on to ensure your safety</string>
+    <string name="app_blocked_message">Service of this app is temporarily unavailable</string>
 </resources>

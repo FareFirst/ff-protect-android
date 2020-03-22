@@ -3,8 +3,6 @@ package com.amahop.farefirst.ffprotect
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
-import androidx.work.WorkManager
-import com.amahop.farefirst.ffprotect.tracker.TrackerWorker
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
@@ -43,7 +41,7 @@ object AuthManger {
         AuthUI.getInstance().signOut(activity).addOnCompleteListener { task ->
 
             if (task.isSuccessful) {
-                WorkManager.getInstance(activity).cancelUniqueWork(TrackerWorker.TAG)
+                WorkerHelper.cancelAllPeriodicWorkers(activity)
                 val intent = Intent(
                     activity,
                     MainActivity::class.java

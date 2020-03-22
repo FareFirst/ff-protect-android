@@ -14,16 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.amahop.farefirst.ffprotect.HomeActivity"
-            android:launchMode="singleInstance" />
-        <activity android:name="com.amahop.farefirst.ffprotect.MainActivity">
+        <activity android:name="com.amahop.farefirst.ffprotect.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name="com.amahop.farefirst.ffprotect.MainActivity" />
+
+        <activity
+            android:name="com.amahop.farefirst.ffprotect.HomeActivity"
+            android:launchMode="singleInstance" />
 
         <service
             android:name="org.altbeacon.beacon.service.BeaconService"

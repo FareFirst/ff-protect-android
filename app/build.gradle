@@ -71,4 +71,5 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation "com.facebook.stetho:stetho-okhttp3:1.5.1"
+    implementation 'com.google.firebase:firebase-config-ktx:19.1.3'
 }
