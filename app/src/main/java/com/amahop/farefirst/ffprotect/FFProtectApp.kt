@@ -20,6 +20,12 @@ class FFProtectApp : Application() {
     private fun initNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(
+                getString(R.string.default_notification_channel_id),
+                getString(R.string.default_notification_channel_title),
+                getString(R.string.default_notification_channel_description),
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            createNotificationChannel(
                 getString(R.string.app_bg_service_notification_channel_id),
                 getString(R.string.app_bg_service_notification_channel_title),
                 getString(R.string.app_bg_service_notification_channel_description),
@@ -38,9 +44,11 @@ class FFProtectApp : Application() {
         val channel = NotificationChannel(channelId, channelTitle, importance)
         // Configure the notification channel.
         channel.description = channelDescription
-        channel.enableLights(false)
-        channel.enableVibration(false)
-        channel.setSound(null, null)
+        if (importance == NotificationManager.IMPORTANCE_LOW) {
+            channel.enableLights(false)
+            channel.enableVibration(false)
+            channel.setSound(null, null)
+        }
         val notificationService =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationService.createNotificationChannel(channel)

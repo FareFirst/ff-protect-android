@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setupTracker() {
         trackerManager = TrackerManager(this)
-        trackerManager?.start(TAG)
+        trackerManager?.start(TAG, true)
 
         val trackerWorkRequest = PeriodicWorkRequestBuilder<TrackerWorker>(
             15,

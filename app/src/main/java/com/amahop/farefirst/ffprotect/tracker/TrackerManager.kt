@@ -17,7 +17,10 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
 
     private var beaconManager: BeaconManager? = null
 
-    fun start(tag: String) {
+    fun start(tag: String, isForegroundRequest: Boolean) {
+        // Not blocking if bluetooth and location permission is not available because altbeacon library
+        // handles that silently. As soon as the dependencies are available it will start the working
+        handleBluetoothRequiredNotification(this.context, isForegroundRequest)
         BeaconAdvertiser.start(this.context, tag)
         setupMonitoring()
     }

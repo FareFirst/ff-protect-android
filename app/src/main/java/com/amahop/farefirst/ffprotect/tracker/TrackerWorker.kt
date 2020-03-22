@@ -29,7 +29,7 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
                 Log.d(TAG, "STARTED")
                 val trackerManager = TrackerManager(this.context)
 
-                trackerManager.start(getRequestTag())
+                trackerManager.start(getRequestTag(), false)
 
                 handler?.postDelayed(Runnable {
                     trackerManager.stop(getRequestTag())
