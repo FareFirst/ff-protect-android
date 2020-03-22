@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.amahop.farefirst.ffprotect.utils.Settings
+import com.facebook.stetho.Stetho
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver
 
 class FFProtectApp : Application() {
@@ -15,7 +16,10 @@ class FFProtectApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Settings.init(applicationContext)
-        backgroundPowerSaver = BackgroundPowerSaver(this);
+        backgroundPowerSaver = BackgroundPowerSaver(this)
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
         initNotificationChannels()
     }
 

@@ -5,8 +5,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.util.Log
 import com.amahop.farefirst.ffprotect.AuthManger
+import com.amahop.farefirst.ffprotect.db.DBProvider
+import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledException
 import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.altbeacon.beacon.Beacon
 import org.altbeacon.beacon.BeaconConsumer
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.Region
@@ -17,6 +22,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     }
 
     private var beaconManager: BeaconManager? = null
+    private var savedTrackerDistanceMap: HashMap<String, Double> = HashMap()
 
     fun start(tag: String, isForegroundRequest: Boolean) {
         handleBluetoothRequiredNotification(this.context, isForegroundRequest)
@@ -67,12 +73,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     override fun onBeaconServiceConnect() {
         beaconManager?.removeAllRangeNotifiers()
         beaconManager?.addRangeNotifier { beacons, _ ->
-            for (beacon in beacons) {
-                Log.i(
-                    TAG,
-                    "address: ${beacon.bluetoothAddress}, id1: ${beacon.id1}, id1: ${beacon.id2}, id1: ${beacon.id3}, distance: ${beacon.distance}"
-                )
-            }
+            handleBeaconsFound(beacons)
         }
 
         AuthManger.getCurrentUser()?.let { currentUser ->
@@ -86,6 +87,39 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             )
         } ?: kotlin.run {
             Log.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
+        }
+    }
+
+    @Synchronized
+    private fun handleBeaconsFound(beacons: Collection<Beacon>) {
+        val trackers: ArrayList<Tracker> = ArrayList()
+        for (beacon in beacons) {
+            Log.d(
+                TAG,
+                "address: ${beacon.bluetoothAddress}, id1: ${beacon.id1}, id1: ${beacon.id2}, id1: ${beacon.id3}, distance: ${beacon.distance}"
+            )
+
+            beacon.id1?.let {
+                val t = Tracker(
+                    trackerUuid = it.toString(),
+                    bluetoothAddress = beacon.bluetoothAddress,
+                    bluetoothName = beacon.bluetoothName,
+                    distance = beacon.distance,
+                    rssi = beacon.rssi
+                )
+
+                val existingDistance = savedTrackerDistanceMap[t.trackerUuid]
+                val currentDistance = t.distance ?: Double.MAX_VALUE
+
+                if (existingDistance == null || (existingDistance > 2 && currentDistance < 2)) {
+                    trackers.add(t)
+                    savedTrackerDistanceMap[t.trackerUuid] = currentDistance
+                }
+            }
+        }
+
+        GlobalScope.launch() {
+            DBProvider.getDB(context).trackerDao().insertAll(trackers)
         }
     }
 }
