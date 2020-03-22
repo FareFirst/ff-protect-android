@@ -22,7 +22,7 @@
     </entry>
     <entry>
         <key>sync_base_url</key>
-        <value>http://5e77a398e3fd85001601f9c3.mockapi.io/api/v1/</value>
+        <value>https://5e77a398e3fd85001601f9c3.mockapi.io/api/v1/</value>
     </entry>
     <entry>
         <key>tracker_worker_interval</key>
@@ -30,6 +30,6 @@
     </entry>
     <entry>
         <key>sync_worker_interval</key>
-        <value>3</value>
+        <value>180</value>
     </entry>
 </defaultsMap>

@@ -7,6 +7,7 @@ import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import com.amahop.farefirst.ffprotect.tracker.exceptions.SoftException
+import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
 import com.crashlytics.android.Crashlytics
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.TimeUnit
@@ -28,23 +29,25 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
     override fun startWork(): ListenableFuture<Result> {
         return CallbackToFutureAdapter.getFuture { completer ->
             try {
-                Log.d(TAG, "STARTED")
-                val trackerManager = TrackerManager(this.context)
+                Log.d(TAG, "STARTED - ${params.id}")
+                RemoteConfigManager.init {
+                    val trackerManager = TrackerManager(this.context)
 
-                trackerManager.start(getRequestTag(), false)
+                    trackerManager.start(getRequestTag(), false)
 
-                handler?.postDelayed(Runnable {
-                    trackerManager.stop(getRequestTag())
-                    Log.d(TAG, "FINISHED")
-                    completer.set(Result.success())
-                }, TimeUnit.MINUTES.toMillis(20))
+                    handler?.postDelayed(Runnable {
+                        trackerManager.stop(getRequestTag())
+                        Log.d(TAG, "FINISHED - ${params.id}")
+                        completer.set(Result.success())
+                    }, TimeUnit.MINUTES.toMillis(20))
+                }
             } catch (err: Throwable) {
                 if (err is SoftException) {
-                    Log.d(TAG, "SKIPPED", err)
+                    Log.d(TAG, "SKIPPED - ${params.id}", err)
                     completer.set(Result.success())
                     return@getFuture completer
                 }
-                Log.e(TAG, "FAILED", err)
+                Log.e(TAG, "FAILED - ${params.id}", err)
                 Crashlytics.logException(err)
                 completer.set(Result.failure())
             }

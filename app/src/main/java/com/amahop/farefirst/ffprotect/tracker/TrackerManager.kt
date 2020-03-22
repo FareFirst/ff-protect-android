@@ -122,7 +122,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
 
             beacon.id1?.let {
                 val t = Tracker(
-                    trackedForUid = currentUser.uid,
+                    clientUserUid = currentUser.uid,
                     trackerUuid = it.toString(),
                     bluetoothAddress = beacon.bluetoothAddress,
                     bluetoothName = beacon.bluetoothName,
@@ -142,7 +142,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             }
         }
 
-        GlobalScope.launch() {
+        GlobalScope.launch {
             DBProvider.getDB(context).trackerDao().insertAll(trackers)
         }
     }

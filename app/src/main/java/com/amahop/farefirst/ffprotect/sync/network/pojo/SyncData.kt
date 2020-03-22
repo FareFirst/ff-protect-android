@@ -4,7 +4,7 @@ import com.amahop.farefirst.ffprotect.sync.network.Location
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 
 data class SyncData(
-    val clientUid: String, // This value is used only for reference
+    val clientUserUid: String, // This value is used only for reference
     val location: Location?,
     val fcmToken: String?,
     val trackers: Array<Tracker>
@@ -15,6 +15,7 @@ data class SyncData(
 
         other as SyncData
 
+        if (clientUserUid != other.clientUserUid) return false
         if (location != other.location) return false
         if (fcmToken != other.fcmToken) return false
         if (!trackers.contentEquals(other.trackers)) return false
@@ -23,7 +24,8 @@ data class SyncData(
     }
 
     override fun hashCode(): Int {
-        var result = location?.hashCode() ?: 0
+        var result = clientUserUid.hashCode()
+        result = 31 * result + (location?.hashCode() ?: 0)
         result = 31 * result + (fcmToken?.hashCode() ?: 0)
         result = 31 * result + trackers.contentHashCode()
         return result

@@ -12,13 +12,14 @@ import java.util.concurrent.TimeUnit
 object RemoteConfigManager {
     private const val TAG = "RemoteConfigManager"
 
+    @Synchronized
     fun init(listener: () -> Unit) {
         val remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = if (BuildConfig.DEBUG) {
                 TimeUnit.HOURS.toSeconds(24)
             } else {
-                0
+                TimeUnit.HOURS.toSeconds(2)
             }
         }
         remoteConfig.setConfigSettingsAsync(configSettings).addOnCompleteListener { task ->

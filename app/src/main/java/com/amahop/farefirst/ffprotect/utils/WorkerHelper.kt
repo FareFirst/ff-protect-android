@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit
 
 object WorkerHelper {
 
+    const val TAG = "WorkerHelper"
+
     fun scheduleAllPeriodicWorkers(context: Context) {
         scheduleTrackerWorker(
             context

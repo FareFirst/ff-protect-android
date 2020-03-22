@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "trackers", indices = [Index(value = ["createdAt"])])
 data class Tracker(
-    val trackedForUid: String,
+    val clientUserUid: String,
     val trackerUuid: String,
     val bluetoothAddress: String?,
     val bluetoothName: String?,
