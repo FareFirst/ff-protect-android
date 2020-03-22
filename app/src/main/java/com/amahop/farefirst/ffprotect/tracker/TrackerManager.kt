@@ -5,11 +5,11 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.util.Log
 import com.amahop.farefirst.ffprotect.AuthManger
+import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledException
 import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
 import org.altbeacon.beacon.BeaconConsumer
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.Region
-
 
 class TrackerManager(private val context: Context) : BeaconConsumer {
     companion object {
@@ -21,8 +21,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     fun start(tag: String, isForegroundRequest: Boolean) {
         handleBluetoothRequiredNotification(this.context, isForegroundRequest)
         if (!BluetoothHelper.isBluetoothEnabled()) {
-            Log.w(TAG, "Not starting the JOB as bluetooth is not enabled")
-            return
+            throw BluetoothNotEnabledException()
         }
         BeaconAdvertiser.start(this.context, tag)
         setupMonitoring()

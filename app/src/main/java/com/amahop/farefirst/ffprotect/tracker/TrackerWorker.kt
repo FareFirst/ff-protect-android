@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
+import com.amahop.farefirst.ffprotect.tracker.exceptions.SoftException
+import com.crashlytics.android.Crashlytics
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.TimeUnit
 
@@ -37,7 +39,13 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
                     completer.set(Result.success())
                 }, TimeUnit.MINUTES.toMillis(20))
             } catch (err: Throwable) {
+                if (err is SoftException) {
+                    Log.d(TAG, "SKIPPED", err)
+                    completer.set(Result.success())
+                    return@getFuture completer
+                }
                 Log.e(TAG, "FAILED", err)
+                Crashlytics.logException(err)
                 completer.set(Result.failure())
             }
 
