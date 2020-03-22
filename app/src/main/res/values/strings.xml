@@ -16,5 +16,5 @@
     <string name="app_bg_service_notification_channel_description">Information related running background services</string>
     <string name="tracking_service_notification_text">Scanning nearby for your safety</string>
     <string name="turn_on_bluetooth_notification_title">Please turn on bluetooth</string>
-    <string name="turn_on_bluetooth_notification_description">%$1s requires bluetooth to be turn on to ensure your safety</string>
+    <string name="turn_on_bluetooth_notification_description">%1$s requires bluetooth to be turn on to ensure your safety</string>
 </resources>

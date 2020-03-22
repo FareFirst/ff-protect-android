@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.util.Log
 import com.amahop.farefirst.ffprotect.AuthManger
+import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
 import org.altbeacon.beacon.BeaconConsumer
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.Region
@@ -18,9 +19,11 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     private var beaconManager: BeaconManager? = null
 
     fun start(tag: String, isForegroundRequest: Boolean) {
-        // Not blocking if bluetooth and location permission is not available because altbeacon library
-        // handles that silently. As soon as the dependencies are available it will start the working
         handleBluetoothRequiredNotification(this.context, isForegroundRequest)
+        if (!BluetoothHelper.isBluetoothEnabled()) {
+            Log.w(TAG, "Not starting the JOB as bluetooth is not enabled")
+            return
+        }
         BeaconAdvertiser.start(this.context, tag)
         setupMonitoring()
     }

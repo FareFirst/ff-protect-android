@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.amahop.farefirst.ffprotect.MainActivity
 import com.amahop.farefirst.ffprotect.R
+import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
 import com.amahop.farefirst.ffprotect.utils.Settings
 import com.crashlytics.android.Crashlytics
 
@@ -23,10 +24,7 @@ fun handleBluetoothRequiredNotification(context: Context, isForegroundRequest: B
 
     if (isForegroundRequest) return
 
-    val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-    val isBluetoothEnabled = bluetoothAdapter != null && bluetoothAdapter.isEnabled
-
-    if (isBluetoothEnabled) return
+    if (BluetoothHelper.isBluetoothEnabled()) return
 
     if (!Settings.isAllowedToShowBluetoothNotification()) {
         Log.d(TAG, "Skipping bluetooth notification")
@@ -53,7 +51,14 @@ private fun showBluetoothRequiredNotification(context: Context) {
             .setContentText(description)
             .setAutoCancel(true)
 
-    builder.setContentIntent(getPendingIntent(context, BLUETOOTH_REQUIRED_NOTIFICATION_ID))
+    builder.setStyle(NotificationCompat.BigTextStyle().bigText(description))
+
+    builder.setContentIntent(
+        getPendingIntentForBluetoothRequired(
+            context,
+            BLUETOOTH_REQUIRED_NOTIFICATION_ID
+        )
+    )
     builder.setDefaults(Notification.DEFAULT_ALL)
 
     getNotificationManager(context)?.notify(BLUETOOTH_REQUIRED_NOTIFICATION_ID, builder.build());
@@ -70,6 +75,8 @@ fun getTrackerRunningNotification(context: Context): Notification {
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(context.getString(R.string.tracking_service_notification_text))
             .setSound(null)
+
+    builder.setStyle(NotificationCompat.BigTextStyle().bigText(context.getString(R.string.tracking_service_notification_text)))
 
     builder.setContentIntent(getPendingIntent(context, TRACKER_RUNNING_NOTIFICATION_ID))
     builder.setDefaults(Notification.DEFAULT_ALL)
@@ -89,9 +96,21 @@ private fun getPendingIntent(
     )
 }
 
+private fun getPendingIntentForBluetoothRequired(
+    context: Context,
+    notificationId: Int
+): PendingIntent? {
+    val resultIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+    return PendingIntent.getActivity(
+        context, notificationId, resultIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
+}
+
+
 private fun getNotificationManager(context: Context): NotificationManager? {
     val notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
     return if (notificationManager != null) {
         notificationManager
     } else {
