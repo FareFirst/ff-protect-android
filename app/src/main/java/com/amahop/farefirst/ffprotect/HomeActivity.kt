@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.amahop.farefirst.ffprotect.tracker.TrackerManager
 import com.amahop.farefirst.ffprotect.tracker.TrackerWorker
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.concurrent.TimeUnit
@@ -17,6 +18,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         const val TAG = "HomeActivity"
     }
 
+    private var trackerManager: TrackerManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -25,6 +28,9 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupTracker() {
+        trackerManager = TrackerManager(this)
+        trackerManager?.start(TAG)
+
         val trackerWorkRequest = PeriodicWorkRequestBuilder<TrackerWorker>(
             15,
             TimeUnit.MINUTES
@@ -62,5 +68,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onDestroy() {
+        trackerManager?.stop(TAG)
+        super.onDestroy()
     }
 }

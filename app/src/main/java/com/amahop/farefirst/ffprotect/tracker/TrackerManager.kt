@@ -1,14 +1,13 @@
 package com.amahop.farefirst.ffprotect.tracker
 
-import android.bluetooth.le.AdvertiseCallback
-import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.util.Log
 import com.amahop.farefirst.ffprotect.AuthManger
-import org.altbeacon.beacon.*
-import java.util.*
+import org.altbeacon.beacon.BeaconConsumer
+import org.altbeacon.beacon.BeaconManager
+import org.altbeacon.beacon.Region
 
 
 class TrackerManager(private val context: Context) : BeaconConsumer {
@@ -16,61 +15,36 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
         const val TAG = "TrackerManager"
     }
 
-    private var beaconTransmitter: BeaconTransmitter? = null
     private var beaconManager: BeaconManager? = null
 
-    fun start() {
-        startAsBeacon()
+    fun start(tag: String) {
+        BeaconAdvertiser.start(this.context, tag)
         setupMonitoring()
     }
 
-    fun stop() {
+    fun stop(tag: String) {
         beaconManager?.unbind(this)
-        beaconTransmitter?.stopAdvertising()
-    }
-
-    private fun startAsBeacon() {
-        val uuid =
-            UUID.nameUUIDFromBytes(AuthManger.getCurrentUser()!!.uid.toByteArray(Charsets.UTF_8))
-                .toString()
-
-        Log.d(TAG, "Beacon uuid : $uuid")
-
-        val beacon = Beacon.Builder()
-            .setId1(uuid)
-            .setId2("1")
-            .setId3("2")
-            .setManufacturer(0x0118)
-            .setTxPower(-59)
-            .setDataFields(listOf(0L))
-            .build()
-
-        val beaconParser = BeaconParser()
-            .setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT)
-
-        beaconTransmitter = BeaconTransmitter(this.context, beaconParser)
-        beaconTransmitter?.startAdvertising(beacon, object : AdvertiseCallback() {
-            override fun onStartFailure(errorCode: Int) {
-                Log.e(TAG, "Advertisement start failed with code: $errorCode")
-            }
-
-            override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-                Log.i(TAG, "Advertisement start succeeded.")
-            }
-        })
+        BeaconAdvertiser.stop(tag)
     }
 
     private fun setupMonitoring() {
         beaconManager = BeaconManager.getInstanceForApplication(this.context)
-        beaconManager?.enableForegroundServiceScanning(
-            getTrackerRunningNotification(this.context),
-            TRACKER_RUNNING_NOTIFICATION_ID
-        )
-        beaconManager?.setEnableScheduledScanJobs(false)
-        beaconManager?.backgroundBetweenScanPeriod = 30000
-        beaconManager?.backgroundScanPeriod = 5000
+        beaconManager?.let {
+            if (it.isAnyConsumerBound) {
+                Log.d(TAG, "Consumer already bound")
+                return
+            }
 
-        beaconManager?.bind(this)
+            it.enableForegroundServiceScanning(
+                getTrackerRunningNotification(this.context),
+                TRACKER_RUNNING_NOTIFICATION_ID
+            )
+            it.foregroundBetweenScanPeriod = 20000
+            it.foregroundScanPeriod = 5000
+            it.backgroundBetweenScanPeriod = 30000
+            it.backgroundScanPeriod = 5000
+            it.bind(this)
+        }
     }
 
     override fun getApplicationContext(): Context {
@@ -96,13 +70,17 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             }
         }
 
-        beaconManager?.startRangingBeaconsInRegion(
-            Region(
-                AuthManger.getCurrentUser()!!.uid,
-                null,
-                null,
-                null
+        AuthManger.getCurrentUser()?.let { currentUser ->
+            beaconManager?.startRangingBeaconsInRegion(
+                Region(
+                    currentUser.uid,
+                    null,
+                    null,
+                    null
+                )
             )
-        )
+        } ?: kotlin.run {
+            Log.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
+        }
     }
 }

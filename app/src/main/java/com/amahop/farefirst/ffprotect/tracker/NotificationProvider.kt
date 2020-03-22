@@ -19,6 +19,7 @@ fun getTrackerRunningNotification(context: Context): Notification {
             .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(context.getString(R.string.tracking_service_notification_text))
+            .setSound(null)
 
     builder.setContentIntent(getPendingIntent(context))
     builder.setDefaults(Notification.DEFAULT_ALL)

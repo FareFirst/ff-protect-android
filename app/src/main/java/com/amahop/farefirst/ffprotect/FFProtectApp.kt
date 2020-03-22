@@ -6,11 +6,14 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.altbeacon.beacon.powersave.BackgroundPowerSaver
 
 class FFProtectApp : Application() {
+    private var backgroundPowerSaver: BackgroundPowerSaver? = null
 
     override fun onCreate() {
         super.onCreate()
+        backgroundPowerSaver = BackgroundPowerSaver(this);
         initNotificationChannels()
     }
 

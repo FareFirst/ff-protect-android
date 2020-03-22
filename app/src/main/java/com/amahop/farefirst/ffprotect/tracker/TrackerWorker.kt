@@ -9,11 +9,18 @@ import androidx.work.WorkerParameters
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.TimeUnit
 
-class TrackerWorker(private val context: Context, params: WorkerParameters) :
+class TrackerWorker(private val context: Context, private val params: WorkerParameters) :
     ListenableWorker(context, params) {
+
+    private val handler: Handler? = null
+    private val trackerManager: TrackerManager? = null
 
     companion object {
         const val TAG = "TrackerWorker"
+    }
+
+    private fun getRequestTag(): String {
+        return "$TAG-${params.id}"
     }
 
     override fun startWork(): ListenableFuture<Result> {
@@ -22,18 +29,26 @@ class TrackerWorker(private val context: Context, params: WorkerParameters) :
                 Log.d(TAG, "STARTED")
                 val trackerManager = TrackerManager(this.context)
 
-                trackerManager.start()
+                trackerManager.start(getRequestTag())
 
-                val handler = Handler()
-                handler.postDelayed(Runnable {
-                    trackerManager.stop()
+                handler?.postDelayed(Runnable {
+                    trackerManager.stop(getRequestTag())
                     Log.d(TAG, "FINISHED")
                     completer.set(Result.success())
-                }, TimeUnit.MINUTES.toMillis(15))
+                }, TimeUnit.MINUTES.toMillis(20))
             } catch (err: Throwable) {
                 Log.e(TAG, "FAILED", err)
                 completer.set(Result.failure())
             }
+
+            return@getFuture completer
         }
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+        handler?.removeCallbacksAndMessages(null)
+        trackerManager?.stop(getRequestTag())
+        Log.d(TAG, "STOPPED BY SYSTEM")
     }
 }
