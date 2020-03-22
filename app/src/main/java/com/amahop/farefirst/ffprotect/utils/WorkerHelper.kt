@@ -28,7 +28,7 @@ object WorkerHelper {
 
     private fun scheduleTrackerWorker(context: Context) {
         val trackerWorkRequest = PeriodicWorkRequestBuilder<TrackerWorker>(
-            15,
+            RemoteConfigManager.getTrackerWorkerIntervalInMinutes(),
             TimeUnit.MINUTES
         ).build()
 
@@ -51,8 +51,8 @@ object WorkerHelper {
             .build()
 
         val syncWorkRequest = PeriodicWorkRequestBuilder<SyncWorker>(
-            3,
-            TimeUnit.HOURS
+            RemoteConfigManager.getSyncWorkerIntervalInMinutes(),
+            TimeUnit.MINUTES
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(context)

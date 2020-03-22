@@ -22,6 +22,14 @@
     </entry>
     <entry>
         <key>sync_base_url</key>
-        <value>https://api.github.com/</value>
+        <value>http://5e77a398e3fd85001601f9c3.mockapi.io/api/v1/</value>
+    </entry>
+    <entry>
+        <key>tracker_worker_interval</key>
+        <value>15</value>
+    </entry>
+    <entry>
+        <key>sync_worker_interval</key>
+        <value>3</value>
     </entry>
 </defaultsMap>
