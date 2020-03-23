@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun setStatusBarColor(color: Int) {
         if (Build.VERSION.SDK_INT >= 21) {
-            window.statusBarColor = resources.getColor(color)
+            window.statusBarColor = ContextCompat.getColor(this, color)
         }
     }
 }

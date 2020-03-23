@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/farefirst_gradient_drawable"
     tools:context="com.amahop.farefirst.ffprotect.MainActivity">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/sign_in_activity_logo_margin_top"
+        app:srcCompat="@drawable/ic_splash_logo" />
 
     <TextView
         android:id="@+id/textView"
+        style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in_request"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_above="@+id/flSignBtn"
+        android:layout_marginBottom="30dp"
+        android:padding="@dimen/dp_16"
+        android:text="@string/sign_in_request" />
 
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/flSignBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:lineSpacingExtra="4sp"
+        android:padding="@dimen/dp_16">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnSignIn"
+            style="@style/FFButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in" />
+    </FrameLayout>
+</RelativeLayout>

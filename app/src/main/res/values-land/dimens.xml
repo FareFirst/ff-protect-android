@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sign_in_activity_logo_margin_top">50dp</dimen>
+</resources>

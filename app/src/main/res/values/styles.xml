@@ -45,5 +45,11 @@
         <item name="android:top">5dp</item>
     </style>
 
+    <style name="Caption">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 
 </resources>
