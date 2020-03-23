@@ -8,8 +8,10 @@ import com.amahop.farefirst.ffprotect.BuildConfig
 object Settings {
     private const val TAG = "Settings"
 
-    private const val PREF_KEY_NO_BLUETOOTH_NOTIFICATION = "no_bluetooth_notification"
+    const val PREF_KEY_IS_TRACKER_ON = "is_tracker_on"
     private const val PREF_KEY_ALLOW_TRACK_LOCATION = "allow_track_location"
+    private const val PREF_KEY_IS_SHOW_BLUETOOTH_REQUIRED_NOTIFICATION =
+        "is_show_bluetooth_required_notification"
     private const val PREF_KEY_FCM_TOKEN = "fcm_token"
 
     private var context: Context? = null
@@ -18,10 +20,10 @@ object Settings {
         this.context = context
     }
 
-    private fun getSP(): SharedPreferences {
+    fun getSP(): SharedPreferences {
         context?.let {
             return it.getSharedPreferences(
-                BuildConfig.APPLICATION_ID,
+                "${BuildConfig.APPLICATION_ID}_preferences",
                 Context.MODE_PRIVATE
             )
         } ?: kotlin.run {
@@ -29,24 +31,16 @@ object Settings {
         }
     }
 
-    fun setStopForBluetoothNotification(value: Boolean) {
-        val editor = getSP().edit()
-        editor.putBoolean(PREF_KEY_NO_BLUETOOTH_NOTIFICATION, value)
-        editor.apply()
-    }
-
-    fun isAllowedToShowBluetoothNotification(): Boolean {
-        return getSP().getBoolean(PREF_KEY_NO_BLUETOOTH_NOTIFICATION, true)
-    }
-
-    fun setAllowTrackLocation(value: Boolean) {
-        val editor = getSP().edit()
-        editor.putBoolean(PREF_KEY_ALLOW_TRACK_LOCATION, value)
-        editor.apply()
+    fun isTrackerOn(): Boolean {
+        return getSP().getBoolean(PREF_KEY_IS_TRACKER_ON, true)
     }
 
     fun isAllowedToTrackLocation(): Boolean {
         return getSP().getBoolean(PREF_KEY_ALLOW_TRACK_LOCATION, true)
+    }
+
+    fun isAllowedToShowBluetoothNotification(): Boolean {
+        return getSP().getBoolean(PREF_KEY_IS_SHOW_BLUETOOTH_REQUIRED_NOTIFICATION, true)
     }
 
     fun setFCMToken(value: String) {

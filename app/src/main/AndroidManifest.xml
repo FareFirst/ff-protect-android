@@ -15,20 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.amahop.farefirst.ffprotect.SplashScreenActivity">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings" />
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name="com.amahop.farefirst.ffprotect.MainActivity" />
-        <activity android:name="com.amahop.farefirst.ffprotect.PermissionActivity" />
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PermissionActivity" />
         <activity
-            android:name="com.amahop.farefirst.ffprotect.HomeActivity"
+            android:name=".HomeActivity"
             android:launchMode="singleInstance" />
 
         <service
@@ -39,7 +39,6 @@
                 android:name="longScanForcingEnabled"
                 android:value="true" />
         </service>
-
         <service
             android:name=".notifications.FFFirebaseMessagingService"
             android:exported="false">
@@ -47,7 +46,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -58,7 +56,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
     </application>
 
 </manifest>

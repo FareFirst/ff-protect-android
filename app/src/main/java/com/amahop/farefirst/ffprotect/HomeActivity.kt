@@ -99,7 +99,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.settings -> {
-                Toast.makeText(this, "Show settings", Toast.LENGTH_SHORT).show()
+                showSettingsActivity()
                 true
             }
             R.id.about -> {
@@ -108,6 +108,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showSettingsActivity() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_ff_protect_shield_accent_for_pref"
+        app:title="@string/pref_tracker">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_search_accent_36dp"
+            app:key="is_tracker_on"
+            app:summaryOff="@string/pref_tracking_summary_off"
+            app:summaryOn="@string/pref_tracking_summary_on"
+            app:title="@string/pref_tracking_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="is_tracker_on"
+            app:icon="@drawable/ic_location_on_accent_36dp"
+            app:key="allow_track_location"
+            app:summary="@string/pref_track_location_summary"
+            app:title="@string/pref_track_location_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_notifications_accent_36dp"
+        app:title="@string/pref_notifications">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_bluetooth_accent_36dp"
+            app:key="is_show_bluetooth_required_notification"
+            app:summaryOff="@string/pref_bluetooth_notification_summary_off"
+            app:summaryOn="@string/pref_bluetooth_notification_summary_on"
+            app:title="@string/pref_bluetooth_notification_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

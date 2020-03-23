@@ -9,6 +9,7 @@ import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 import com.amahop.farefirst.ffprotect.tracker.exceptions.AppBlockedException
 import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledException
 import com.amahop.farefirst.ffprotect.tracker.exceptions.LocationPermissionNotGrantedException
+import com.amahop.farefirst.ffprotect.tracker.exceptions.TrackerBlockedException
 import com.amahop.farefirst.ffprotect.utils.*
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
@@ -32,12 +33,16 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             throw AppBlockedException()
         }
 
+        if (!Settings.isTrackerOn()) {
+            WorkerHelper.cancelAllPeriodicWorkers(context)
+            throw TrackerBlockedException()
+        }
+
         if (!PermissionHelper.isLocationPermissionGranted(this.context)) {
             throw LocationPermissionNotGrantedException()
         }
 
         handleBluetoothRequiredNotification(this.context, isForegroundRequest)
-
 
         if (!BluetoothHelper.isBluetoothEnabled()) {
             throw BluetoothNotEnabledException()
