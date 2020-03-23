@@ -67,6 +67,8 @@ object RemoteConfigManager {
     private const val RC_KEY_SYNC_BASE_URL = "sync_base_url"
     private const val RC_KEY_TRACKER_WORKER_INTERVAL = "tracker_worker_interval"
     private const val RC_KEY_SYNC_WORKER_INTERVAL = "sync_worker_interval"
+    private const val RC_KEY_PRIVACY_URL = "privacy_url"
+    private const val RC_KEY_TERMS_URL = "terms_url"
 
     fun isAppBlocked(): Boolean {
         return Firebase.remoteConfig.getBoolean(RC_KEY_IS_APP_BLOCKED)
@@ -99,4 +101,13 @@ object RemoteConfigManager {
     fun getSyncWorkerIntervalInMinutes(): Long {
         return Firebase.remoteConfig.getLong(RC_KEY_SYNC_WORKER_INTERVAL)
     }
+
+    fun getPrivacyUrl(): String {
+        return Firebase.remoteConfig.getString(RC_KEY_PRIVACY_URL)
+    }
+
+    fun getTermsUrl(): String {
+        return Firebase.remoteConfig.getString(RC_KEY_TERMS_URL)
+    }
+
 }

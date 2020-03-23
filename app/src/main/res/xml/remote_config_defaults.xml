@@ -32,4 +32,12 @@
         <key>sync_worker_interval</key>
         <value>180</value>
     </entry>
+    <entry>
+        <key>privacy_url</key>
+        <value>https://farefirst-debug.firebaseapp.com/privacy-policy?no_frame=1</value>
+    </entry>
+    <entry>
+        <key>terms_url</key>
+        <value>https://farefirst-debug.firebaseapp.com/terms-of-use?no_frame=1</value>
+    </entry>
 </defaultsMap>

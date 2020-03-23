@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 object AuthManger {
-    const val RC_SIGN_IN = 1001 // Should be globally unique
-    const val TAG = "AuthManger"
+    private const val RC_SIGN_IN = 1001 // Should be globally unique
+    private const val TAG = "AuthManger"
 
     fun getCurrentUser(): FirebaseUser? {
         val auth = FirebaseAuth.getInstance()
@@ -35,6 +35,12 @@ object AuthManger {
                     )
                 )
                 .setIsSmartLockEnabled(false)
+                .setTheme(R.style.AuthTheme)
+                .setLogo(R.drawable.ic_ff_protect_wrting_logo)
+                .setTosAndPrivacyPolicyUrls(
+                    RemoteConfigManager.getTermsUrl(),
+                    RemoteConfigManager.getPrivacyUrl()
+                )
                 .build(),
             RC_SIGN_IN
         )

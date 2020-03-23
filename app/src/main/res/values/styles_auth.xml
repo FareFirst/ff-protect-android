@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Overriding Styles of Auth Theme -->
+    <!--Only Portrait Layout is changed-->
+    <style name="AuthTheme" parent="FirebaseUI">
+        <!-- Required for sign-in flow styling -->
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back_white_24dp</item>
+        <item name="android:homeAsUpIndicator">
+            @drawable/ic_arrow_back_white_24dp
+        </item>
+        <item name="android:navigationIcon">
+            @drawable/ic_arrow_back_white_24dp
+        </item>
+        <item name="navigationIcon">@drawable/ic_arrow_back_white_24dp</item>
+
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+    </style>
+
+    <style name="NoActionBar" parent="AppTheme">
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="FirebaseUI.AuthMethodPicker.RootLayout">
+        <item name="android:background">@drawable/farefirst_gradient_drawable</item>
+    </style>
+
+    <style name="FirebaseUI.TextInputLayout">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_404046</item>
+        <item name="android:textColorHint">@color/label_grey</item>
+        <item name="colorAccent">@color/grey_e1e1e6</item>
+        <item name="colorControlNormal">@color/grey_e1e1e6</item>
+        <item name="colorControlActivated">@color/grey_e1e1e6</item>
+        <item name="colorControlHighlight">@color/grey_e1e1e6</item>
+    </style>
+
+    <style name="FirebaseUI.TextInputEditText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/grey_e1e1e6</item>
+        <item name="colorAccent">@color/grey_e1e1e6</item>
+        <item name="colorControlNormal">@color/grey_e1e1e6</item>
+        <item name="colorControlActivated">@color/grey_e1e1e6</item>
+        <item name="colorControlHighlight">@color/grey_e1e1e6</item>
+    </style>
+
+    <style name="FirebaseUI.Button" parent="@style/FFButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

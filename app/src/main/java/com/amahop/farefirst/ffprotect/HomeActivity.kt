@@ -9,7 +9,7 @@ import com.amahop.farefirst.ffprotect.utils.AuthManger
 import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity(), View.OnClickListener {
+class HomeActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         const val TAG = "HomeActivity"

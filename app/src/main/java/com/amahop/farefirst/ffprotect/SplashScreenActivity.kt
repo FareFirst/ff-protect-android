@@ -3,7 +3,6 @@ package com.amahop.farefirst.ffprotect
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.amahop.farefirst.ffprotect.utils.LogManager
 import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
 import com.amahop.farefirst.ffprotect.utils.WorkerHelper
@@ -13,7 +12,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.security.ProviderInstaller
 import com.google.android.gms.tasks.Task
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : BaseActivity() {
     private var isActivityDestroyed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
