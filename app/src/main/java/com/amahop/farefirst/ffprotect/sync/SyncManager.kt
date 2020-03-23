@@ -5,6 +5,7 @@ import android.location.Location
 import com.amahop.farefirst.ffprotect.db.DBProvider
 import com.amahop.farefirst.ffprotect.network.ApiServiceFactory
 import com.amahop.farefirst.ffprotect.sync.network.SyncService
+import com.amahop.farefirst.ffprotect.sync.network.pojo.Device
 import com.amahop.farefirst.ffprotect.sync.network.pojo.SyncData
 import com.amahop.farefirst.ffprotect.utils.*
 import com.google.firebase.auth.FirebaseUser
@@ -66,10 +67,16 @@ class SyncManger(private val context: Context) {
                 null
             }
 
+            val device = Device(
+                fcmToken = fcmToken,
+                networkCountryCode = SystemUtils.getNetworkCountryCode(context),
+                simCountryCode = SystemUtils.getSimCountryCode(context)
+            )
+
             val syncData = SyncData(
                 clientUserUid = currentUser.uid,
                 location = loc,
-                fcmToken = fcmToken,
+                device = device,
                 trackers = trackers
             )
 
