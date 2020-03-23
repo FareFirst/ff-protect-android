@@ -2,13 +2,12 @@ package com.amahop.farefirst.ffprotect.tracker
 
 import android.content.Context
 import android.os.Handler
-import android.util.Log
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import com.amahop.farefirst.ffprotect.tracker.exceptions.SoftException
+import com.amahop.farefirst.ffprotect.utils.LogManager
 import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
-import com.crashlytics.android.Crashlytics
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.TimeUnit
 
@@ -29,26 +28,26 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
     override fun startWork(): ListenableFuture<Result> {
         return CallbackToFutureAdapter.getFuture { completer ->
             try {
-                Log.d(TAG, "STARTED - ${params.id}")
+                LogManager.d(TAG, "STARTED - ${params.id}")
                 RemoteConfigManager.init {
                     val trackerManager = TrackerManager(this.context)
 
                     trackerManager.start(getRequestTag(), false)
 
+                    val handler = Handler()
                     handler?.postDelayed(Runnable {
                         trackerManager.stop(getRequestTag())
-                        Log.d(TAG, "FINISHED - ${params.id}")
+                        LogManager.d(TAG, "FINISHED - ${params.id}")
                         completer.set(Result.success())
                     }, TimeUnit.MINUTES.toMillis(20))
                 }
             } catch (err: Throwable) {
                 if (err is SoftException) {
-                    Log.d(TAG, "SKIPPED - ${params.id}", err)
+                    LogManager.d(TAG, "SKIPPED - ${params.id}", err)
                     completer.set(Result.success())
                     return@getFuture completer
                 }
-                Log.e(TAG, "FAILED - ${params.id}", err)
-                Crashlytics.logException(err)
+                LogManager.e(TAG, "FAILED - ${params.id}", err)
                 completer.set(Result.failure())
             }
 
@@ -60,6 +59,6 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
         super.onStopped()
         handler?.removeCallbacksAndMessages(null)
         trackerManager?.stop(getRequestTag())
-        Log.d(TAG, "STOPPED BY SYSTEM")
+        LogManager.d(TAG, "STOPPED BY SYSTEM")
     }
 }

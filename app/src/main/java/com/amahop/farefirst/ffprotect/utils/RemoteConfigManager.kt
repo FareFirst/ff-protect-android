@@ -1,9 +1,7 @@
 package com.amahop.farefirst.ffprotect.utils
 
-import android.util.Log
 import com.amahop.farefirst.ffprotect.BuildConfig
 import com.amahop.farefirst.ffprotect.R
-import com.crashlytics.android.Crashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
@@ -30,18 +28,30 @@ object RemoteConfigManager {
                         if (setDefaultTask.isSuccessful) {
                             remoteConfig.fetchAndActivate()
                                 .addOnCompleteListener { serverValueTask ->
-                                    if (!serverValueTask.isSuccessful) {
-                                        Log.d(TAG, "Failed to fetch and activate server values")
+                                    if (serverValueTask.isSuccessful) {
+                                        LogManager.d(
+                                            TAG,
+                                            "RemoteConfigManager successfully fetched and activated"
+                                        )
+                                    } else {
+                                        LogManager.d(
+                                            TAG,
+                                            "Failed to fetch and activate server values"
+                                        )
                                     }
                                     listener()
                                 }
                         } else {
-                            Crashlytics.logException(RuntimeException("Failed to activate remote config default value"))
+                            val th =
+                                RuntimeException("Failed to activate remote config default value")
+                            LogManager.e(TAG, th.message, th)
                             listener()
                         }
                     }
             } else {
-                Crashlytics.logException(RuntimeException("Failed to activate remote config settings"))
+                val th = RuntimeException("Failed to activate remote config settings")
+                LogManager.e(TAG, th.message, th)
+
                 listener()
             }
         }

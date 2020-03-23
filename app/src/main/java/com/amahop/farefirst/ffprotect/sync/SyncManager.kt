@@ -2,15 +2,11 @@ package com.amahop.farefirst.ffprotect.sync
 
 import android.content.Context
 import android.location.Location
-import android.util.Log
 import com.amahop.farefirst.ffprotect.db.DBProvider
 import com.amahop.farefirst.ffprotect.network.ApiServiceFactory
 import com.amahop.farefirst.ffprotect.sync.network.SyncService
 import com.amahop.farefirst.ffprotect.sync.network.pojo.SyncData
-import com.amahop.farefirst.ffprotect.utils.AuthManger
-import com.amahop.farefirst.ffprotect.utils.LocationHelper
-import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
-import com.amahop.farefirst.ffprotect.utils.Settings
+import com.amahop.farefirst.ffprotect.utils.*
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,7 +23,7 @@ class SyncManger(private val context: Context) {
         AuthManger.getCurrentUser()?.let { currentUser ->
             AuthManger.getBearerToken() { bearerToken ->
                 if (bearerToken == null) {
-                    Log.e(TAG, "Bearer token is null")
+                    LogManager.e(TAG, "Bearer token is null")
                     listener(SyncWorker.Companion.ResultStatus.FAILED)
                     return@getBearerToken
                 }
@@ -37,7 +33,7 @@ class SyncManger(private val context: Context) {
                 }
             }
         } ?: kotlin.run {
-            Log.e(TAG, "Current user is null")
+            LogManager.e(TAG, "Current user is null")
             listener(SyncWorker.Companion.ResultStatus.FAILED)
         }
     }
@@ -56,7 +52,7 @@ class SyncManger(private val context: Context) {
             val trackers = DBProvider.getDB(context).trackerDao().trackersSync(syncTime)
 
             if (trackers.isEmpty()) {
-                Log.d(TAG, "Nothing top sync")
+                LogManager.d(TAG, "Nothing top sync")
                 listener(SyncWorker.Companion.ResultStatus.SUCCESS)
                 return@launch
             }
@@ -80,7 +76,7 @@ class SyncManger(private val context: Context) {
             getSyncService().sync(bearerToken, syncData)
                 .enqueue(object : Callback<Response<Void>> {
                     override fun onFailure(call: Call<Response<Void>>, t: Throwable) {
-                        Log.e(TAG, "Failed to sync ${t.message}")
+                        LogManager.e(TAG, "Failed to sync ${t.message}")
                         listener(SyncWorker.Companion.ResultStatus.FAILED)
                     }
 
@@ -90,9 +86,9 @@ class SyncManger(private val context: Context) {
                     ) {
                         when (response.code()) {
                             401 -> {
-                                Log.e(TAG, "Sync failed with ${response.code()} error")
+                                LogManager.e(TAG, "Sync failed with ${response.code()} error")
                                 AuthManger.getBearerToken(true) {
-                                    Log.d(TAG, "Token force refreshed")
+                                    LogManager.d(TAG, "Token force refreshed")
                                     listener(SyncWorker.Companion.ResultStatus.RETRY)
                                 }
                             }
@@ -103,7 +99,7 @@ class SyncManger(private val context: Context) {
                                 listener(SyncWorker.Companion.ResultStatus.SUCCESS)
                             }
                             else -> {
-                                Log.e(TAG, "Sync failed with ${response.code()} error")
+                                LogManager.e(TAG, "Sync failed with ${response.code()} error")
                                 listener(SyncWorker.Companion.ResultStatus.FAILED)
                             }
                         }
@@ -123,7 +119,7 @@ class SyncManger(private val context: Context) {
     private fun getFCMToken(): String? {
         val fcmToken = Settings.getFCMToken()
         if (fcmToken == null) {
-            Log.d(TAG, "FCM token is null")
+            LogManager.d(TAG, "FCM token is null")
         }
 
         return fcmToken

@@ -3,7 +3,6 @@ package com.amahop.farefirst.ffprotect.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.amahop.farefirst.ffprotect.MainActivity
 import com.amahop.farefirst.ffprotect.R
 import com.firebase.ui.auth.AuthUI
@@ -93,7 +92,7 @@ object AuthManger {
                     false,
                     R.string.unknown_error
                 )
-                Log.e(TAG, "Sign-in error: ", response.error)
+                LogManager.e(TAG, "Sign-in error: ", response.error)
             }
         }
     }

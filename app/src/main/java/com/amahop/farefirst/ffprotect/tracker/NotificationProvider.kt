@@ -12,8 +12,8 @@ import androidx.core.content.ContextCompat
 import com.amahop.farefirst.ffprotect.MainActivity
 import com.amahop.farefirst.ffprotect.R
 import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
+import com.amahop.farefirst.ffprotect.utils.LogManager
 import com.amahop.farefirst.ffprotect.utils.Settings
-import com.crashlytics.android.Crashlytics
 
 private const val TAG = "NotificationProvider"
 const val TRACKER_RUNNING_NOTIFICATION_ID = 999
@@ -27,7 +27,7 @@ fun handleBluetoothRequiredNotification(context: Context, isForegroundRequest: B
     if (BluetoothHelper.isBluetoothEnabled()) return
 
     if (!Settings.isAllowedToShowBluetoothNotification()) {
-        Log.d(TAG, "Skipping bluetooth notification")
+        LogManager.d(TAG, "Skipping bluetooth notification")
         return
     }
 
@@ -114,7 +114,8 @@ private fun getNotificationManager(context: Context): NotificationManager? {
     return if (notificationManager != null) {
         notificationManager
     } else {
-        Crashlytics.logException(RuntimeException("The system service is null for " + Context.NOTIFICATION_SERVICE))
+        val th = RuntimeException("The system service is null for " + Context.NOTIFICATION_SERVICE)
+        Log.e(TAG, th.message, th)
         null
     }
 }

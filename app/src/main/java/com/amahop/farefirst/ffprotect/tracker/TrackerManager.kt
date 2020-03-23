@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.location.Location
-import android.util.Log
 import com.amahop.farefirst.ffprotect.db.DBProvider
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 import com.amahop.farefirst.ffprotect.tracker.exceptions.AppBlockedException
@@ -56,7 +55,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
         beaconManager = BeaconManager.getInstanceForApplication(this.context)
         beaconManager?.let {
             if (it.isAnyConsumerBound) {
-                Log.d(TAG, "Consumer already bound")
+                LogManager.d(TAG, "Consumer already bound")
                 return
             }
 
@@ -102,7 +101,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
                     )
                 )
             } ?: kotlin.run {
-                Log.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
+                LogManager.d(TAG, "User not signed in so can't startRangingBeaconsInRegion")
             }
         }
     }
@@ -115,7 +114,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
     ) {
         val trackers: ArrayList<Tracker> = ArrayList()
         for (beacon in beacons) {
-            Log.d(
+            LogManager.d(
                 TAG,
                 "address: ${beacon.bluetoothAddress}, id1: ${beacon.id1}, id1: ${beacon.id2}, id1: ${beacon.id3}, distance: ${beacon.distance}"
             )

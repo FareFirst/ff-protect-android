@@ -2,9 +2,9 @@ package com.amahop.farefirst.ffprotect
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amahop.farefirst.ffprotect.utils.LogManager
 import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
 import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 import com.google.android.gms.common.GoogleApiAvailability
@@ -51,7 +51,7 @@ class SplashScreenActivity : AppCompatActivity() {
             // Show dialog to allow users to install, update, or otherwise enable Google Play services.
             GoogleApiAvailability.getInstance().showErrorNotification(this, e.connectionStatusCode)
         } catch (e: GooglePlayServicesNotAvailableException) {
-            Log.e("SecurityException", "Google Play Services not available.")
+            LogManager.e("SecurityException", "Google Play Services not available.")
         }
     }
 

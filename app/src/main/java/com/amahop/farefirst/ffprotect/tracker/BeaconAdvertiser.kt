@@ -3,8 +3,8 @@ package com.amahop.farefirst.ffprotect.tracker
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseSettings
 import android.content.Context
-import android.util.Log
 import com.amahop.farefirst.ffprotect.utils.AuthManger
+import com.amahop.farefirst.ffprotect.utils.LogManager
 import org.altbeacon.beacon.Beacon
 import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.BeaconTransmitter
@@ -21,40 +21,40 @@ object BeaconAdvertiser {
     @Synchronized
     fun start(context: Context, tag: String) {
         if (hashMap[tag] != null) {
-            Log.d(TAG, "Already running for tag")
+            LogManager.d(TAG, "Already running for tag")
             return
         }
 
         val currentUser = AuthManger.getCurrentUser()
 
         if (currentUser == null) {
-            Log.d(TAG, "User not signed in so can't start advertising. Ignoring $tag")
+            LogManager.d(TAG, "User not signed in so can't start advertising. Ignoring $tag")
             return
         }
 
         if (hashMap.keys.size == 0) {
             startAdvertising(context, currentUser.uid)
-            Log.d(TAG, "starting advertising")
+            LogManager.d(TAG, "starting advertising")
         }
 
         hashMap[tag] = true
-        Log.i(TAG, "Added $tag")
+        LogManager.i(TAG, "Added $tag")
     }
 
     @Synchronized
     fun stop(tag: String) {
         if (hashMap[tag] != null) {
-            Log.d(TAG, "Unknown TAG for stop")
+            LogManager.d(TAG, "Unknown TAG for stop")
             return
         }
 
         hashMap.remove(tag)
-        Log.i(TAG, "Removed $tag")
+        LogManager.i(TAG, "Removed $tag")
 
         if (hashMap.keys.size == 0) {
             beaconTransmitter?.stopAdvertising()
             beaconTransmitter = null
-            Log.d(TAG, "Stopping advertising")
+            LogManager.d(TAG, "Stopping advertising")
         }
     }
 
@@ -63,7 +63,7 @@ object BeaconAdvertiser {
             UUID.nameUUIDFromBytes(uid.toByteArray(Charsets.UTF_8))
                 .toString()
 
-        Log.d(TrackerManager.TAG, "Beacon uuid : $uuid")
+        LogManager.d(TrackerManager.TAG, "Beacon uuid : $uuid")
 
         val beacon = Beacon.Builder()
             .setId1(uuid)
@@ -80,11 +80,11 @@ object BeaconAdvertiser {
         beaconTransmitter = BeaconTransmitter(context, beaconParser)
         beaconTransmitter?.startAdvertising(beacon, object : AdvertiseCallback() {
             override fun onStartFailure(errorCode: Int) {
-                Log.e(TrackerManager.TAG, "Advertisement start failed with code: $errorCode")
+                LogManager.e(TrackerManager.TAG, "Advertisement start failed with code: $errorCode")
             }
 
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-                Log.i(TrackerManager.TAG, "Advertisement start succeeded.")
+                LogManager.i(TrackerManager.TAG, "Advertisement start succeeded.")
             }
         })
     }
