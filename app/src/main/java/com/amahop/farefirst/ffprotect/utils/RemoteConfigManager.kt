@@ -19,6 +19,7 @@ object RemoteConfigManager {
             } else {
                 TimeUnit.HOURS.toSeconds(2)
             }
+            fetchTimeoutInSeconds = 10
         }
         remoteConfig.setConfigSettingsAsync(configSettings).addOnCompleteListener { task ->
 
