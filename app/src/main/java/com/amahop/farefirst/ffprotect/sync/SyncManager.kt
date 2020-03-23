@@ -49,7 +49,7 @@ class SyncManger(private val context: Context) {
 
             val syncTime = System.currentTimeMillis()
 
-            val trackers = DBProvider.getDB(context).trackerDao().trackersSync(syncTime)
+            val trackers = DBProvider.getDB(context).trackerDao().trackersToBeSync(syncTime)
 
             if (trackers.isEmpty()) {
                 LogManager.d(TAG, "Nothing top sync")
@@ -58,7 +58,7 @@ class SyncManger(private val context: Context) {
             }
 
             val loc = if (location != null) {
-                com.amahop.farefirst.ffprotect.sync.network.Location(
+                com.amahop.farefirst.ffprotect.sync.network.pojo.Location(
                     latitude = location.latitude,
                     longitude = location.longitude
                 )

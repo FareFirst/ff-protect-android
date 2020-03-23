@@ -1,6 +1,5 @@
 package com.amahop.farefirst.ffprotect.sync.network.pojo
 
-import com.amahop.farefirst.ffprotect.sync.network.Location
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 
 data class SyncData(
