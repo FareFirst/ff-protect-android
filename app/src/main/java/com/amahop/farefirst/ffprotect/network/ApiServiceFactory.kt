@@ -1,6 +1,7 @@
 package com.amahop.farefirst.ffprotect.network
 
 import com.amahop.farefirst.ffprotect.BuildConfig
+import com.amahop.farefirst.ffprotect.network.interceptors.UserAgentInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,6 +18,8 @@ object ApiServiceFactory {
         }
 
         val httpClient = OkHttpClient.Builder()
+
+        httpClient.addInterceptor(UserAgentInterceptor("FFProtect"))
 
         httpClient.addInterceptor {
             val request = it.request().newBuilder()
