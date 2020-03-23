@@ -21,13 +21,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         const val TAG = "HomeActivity"
 
         fun handleShowHomeActivity(activity: BaseActivity) {
-            var clazz: Class<BaseActivity> = HomeActivity::class.java as Class<BaseActivity>
+            var clazz: Class<*> = HomeActivity::class.java
             if (AuthManger.isSignedIn()) {
                 if (!PermissionHelper.isLocationPermissionGranted(activity)) {
-                    clazz = PermissionActivity::class.java as Class<BaseActivity>
+                    clazz = PermissionActivity::class.java
                 }
             } else {
-                clazz = MainActivity::class.java as Class<BaseActivity>
+                clazz = MainActivity::class.java
             }
 
             val intent = Intent(activity, clazz)
