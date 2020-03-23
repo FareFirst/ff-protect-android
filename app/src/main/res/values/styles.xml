@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -51,5 +51,10 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="DefaultCardStyle">
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPadding">@dimen/dp_16</item>
+    </style>
 
 </resources>

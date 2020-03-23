@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.amahop.farefirst.ffprotect.utils.*
+import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException

@@ -43,7 +43,7 @@ object BeaconAdvertiser {
 
     @Synchronized
     fun stop(tag: String) {
-        if (hashMap[tag] != null) {
+        if (hashMap[tag] == null) {
             LogManager.d(TAG, "Unknown TAG for stop => $tag")
             return
         }

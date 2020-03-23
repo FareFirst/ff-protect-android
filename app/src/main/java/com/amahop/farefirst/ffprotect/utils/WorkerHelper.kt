@@ -29,17 +29,10 @@ object WorkerHelper {
     }
 
     private fun scheduleTrackerWorker(context: Context) {
-        val trackerWorkRequest = PeriodicWorkRequestBuilder<TrackerWorker>(
-            RemoteConfigManager.getTrackerWorkerIntervalInMinutes(),
-            TimeUnit.MINUTES
-        ).build()
+        val trackerWorkRequest = OneTimeWorkRequestBuilder<TrackerWorker>().build()
 
         WorkManager.getInstance(context)
-            .enqueueUniquePeriodicWork(
-                TrackerWorker.TAG,
-                ExistingPeriodicWorkPolicy.KEEP,
-                trackerWorkRequest
-            )
+            .enqueue(trackerWorkRequest)
     }
 
     private fun cancelTrackerWorker(context: Context) {

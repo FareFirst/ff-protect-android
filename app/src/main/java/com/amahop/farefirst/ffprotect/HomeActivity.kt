@@ -1,17 +1,22 @@
 package com.amahop.farefirst.ffprotect
 
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
-import com.amahop.farefirst.ffprotect.utils.AppBarConfigurer
-import com.amahop.farefirst.ffprotect.utils.AuthManger
-import com.amahop.farefirst.ffprotect.utils.PermissionHelper
-import com.amahop.farefirst.ffprotect.utils.WorkerHelper
+import com.amahop.farefirst.ffprotect.ui.dashboard.DashboardViewModel
+import com.amahop.farefirst.ffprotect.utils.*
+import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
+import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothStatusChangeObserver
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.view_app_bar.*
 
@@ -37,25 +42,81 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private var trackerManager: TrackerManager? = null
+    private var isTrackerManagerStarted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupViews()
+        initViewModel()
         setupTracker()
     }
 
-    private fun setupTracker() {
-        trackerManager = TrackerManager(this)
-        trackerManager?.start(TAG, true)
+    private fun initViewModel() {
+        val model: DashboardViewModel by viewModels()
+        handleBluetoothChanges(model)
+    }
 
+    private fun handleBluetoothChanges(model: DashboardViewModel) {
+        model.isBluetoothOn.observe(this, Observer {
+            it?.let {
+                cvBluetoothOff.visibility = if (it) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+            }
+        })
+        BluetoothStatusChangeObserver(this) {
+            Log.d(TAG, "Status changed")
+            model.refreshBluetoothStatus()
+            startTracker()
+        }.registerLifecycle(lifecycle)
+    }
+
+    private fun setupTracker() {
+        startTracker()
         WorkerHelper.scheduleAllPeriodicWorkers(this)
+    }
+
+    private fun startTracker() {
+        if (isTrackerManagerStarted) {
+            LogManager.w(TAG, "TrackerManager already started")
+            return
+        }
+
+        if (!BluetoothHelper.isBluetoothEnabled()) {
+            Log.d(TAG, "Skipping startTracker as Bluetooth not enabled")
+            return
+        }
+
+        try {
+            trackerManager = TrackerManager(this)
+            trackerManager?.start(TAG, true)
+            isTrackerManagerStarted = true
+            Log.d(TAG, "startTracker  => Success")
+        } catch (th: Throwable) {
+            LogManager.e(TAG, th.message, th)
+        }
     }
 
     private fun setupViews() {
         setSupportActionBar(toolbar)
         configureAppBar()
         btnSignOut.setOnClickListener(this)
+        cvBluetoothOff.setOnClickListener(this)
+        setupSwipeToRefreshView()
+    }
+
+    private fun setupSwipeToRefreshView() {
+        srLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
+        srLayout.setOnRefreshListener {
+            refresh()
+        }
+    }
+
+    private fun refresh() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun configureAppBar() {
@@ -73,7 +134,12 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
         when (v.id) {
             R.id.btnSignOut -> onClickSignOut()
+            R.id.cvBluetoothOff -> onClickTurnOnBluetooth()
         }
+    }
+
+    private fun onClickTurnOnBluetooth() {
+        startActivity(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
     }
 
     private fun onClickSignOut() {

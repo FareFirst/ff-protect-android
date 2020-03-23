@@ -11,6 +11,7 @@ import com.amahop.farefirst.ffprotect.tracker.exceptions.BluetoothNotEnabledExce
 import com.amahop.farefirst.ffprotect.tracker.exceptions.LocationPermissionNotGrantedException
 import com.amahop.farefirst.ffprotect.tracker.exceptions.TrackerBlockedException
 import com.amahop.farefirst.ffprotect.utils.*
+import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

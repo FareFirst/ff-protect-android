@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.amahop.farefirst.ffprotect.MainActivity
 import com.amahop.farefirst.ffprotect.R
-import com.amahop.farefirst.ffprotect.utils.BluetoothHelper
+import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
 import com.amahop.farefirst.ffprotect.utils.LogManager
 import com.amahop.farefirst.ffprotect.utils.Settings
 

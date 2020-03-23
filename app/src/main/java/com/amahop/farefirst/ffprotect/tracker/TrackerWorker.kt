@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 class TrackerWorker(private val context: Context, private val params: WorkerParameters) :
     ListenableWorker(context, params) {
 
-    private val handler: Handler? = null
+    private var handler: Handler? = null
     private val trackerManager: TrackerManager? = null
 
     companion object {
@@ -27,28 +27,29 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
 
     override fun startWork(): ListenableFuture<Result> {
         return CallbackToFutureAdapter.getFuture { completer ->
-            try {
-                LogManager.d(TAG, "STARTED - ${params.id}")
-                RemoteConfigManager.init {
+            LogManager.d(TAG, "STARTED - ${params.id}")
+            RemoteConfigManager.init {
+                try {
                     val trackerManager = TrackerManager(this.context)
 
                     trackerManager.start(getRequestTag(), false)
 
-                    val handler = Handler()
+                    handler = Handler()
                     handler?.postDelayed(Runnable {
                         trackerManager.stop(getRequestTag())
                         LogManager.d(TAG, "FINISHED - ${params.id}")
                         completer.set(Result.success())
                     }, TimeUnit.MINUTES.toMillis(20))
+
+                } catch (err: Throwable) {
+                    if (err is SoftException) {
+                        LogManager.d(TAG, "SKIPPED - ${params.id} - ${err.message}")
+                        completer.set(Result.success())
+                        return@init
+                    }
+                    LogManager.e(TAG, "FAILED - ${params.id}", err)
+                    completer.set(Result.failure())
                 }
-            } catch (err: Throwable) {
-                if (err is SoftException) {
-                    LogManager.d(TAG, "SKIPPED - ${params.id} - ${err.message}")
-                    completer.set(Result.success())
-                    return@getFuture completer
-                }
-                LogManager.e(TAG, "FAILED - ${params.id}", err)
-                completer.set(Result.failure())
             }
 
             return@getFuture completer

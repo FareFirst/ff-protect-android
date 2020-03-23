@@ -1,6 +1,7 @@
-package com.amahop.farefirst.ffprotect.utils
+package com.amahop.farefirst.ffprotect.utils.bluetooth
 
 import android.bluetooth.BluetoothAdapter
+
 
 object BluetoothHelper {
     fun isBluetoothAvailable(): Boolean {
