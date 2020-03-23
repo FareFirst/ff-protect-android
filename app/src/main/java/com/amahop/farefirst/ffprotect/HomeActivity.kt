@@ -2,6 +2,9 @@ package com.amahop.farefirst.ffprotect
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
@@ -84,6 +87,26 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 R.string.failed_to_sign_out,
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.home_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                Toast.makeText(this, "Show settings", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.about -> {
+                Toast.makeText(this, "Show about", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -21,4 +21,6 @@
     <string name="turn_on_bluetooth_notification_description">%1$s requires bluetooth to be turn on to ensure your safety</string>
     <string name="app_blocked_message">Service of this app is temporarily unavailable</string>
     <string name="bluetooth_not_available">Bluetooth not available in this device. So unable to start.</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
 </resources>
