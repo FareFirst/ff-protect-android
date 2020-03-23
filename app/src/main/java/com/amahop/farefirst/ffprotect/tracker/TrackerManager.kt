@@ -141,8 +141,10 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             }
         }
 
-        GlobalScope.launch {
-            DBProvider.getDB(context).trackerDao().insertAll(trackers)
+        if (trackers.isNotEmpty()) {
+            GlobalScope.launch {
+                DBProvider.getDB(context).trackerDao().insertAll(trackers)
+            }
         }
     }
 }
