@@ -2,6 +2,9 @@
     <string name="app_name">FF Protect</string>
     <string name="sign_in_request">Please sign in with your phone number to continue. Authority will be using this number to contact you in case of emergency.</string>
     <string name="sign_in">Sign in</string>
+    <string name="permission_request">Please grand the location permission to continue. This app primarily works using Bluetooth low energy technology. For this to work, we need the location permission. We also track your location, but if you don\'t want that, please opt-out from the app settings.
+</string>
+    <string name="get_started">Get started</string>
     <string name="welcome_home">Welcome home</string>
     <string name="sign_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
@@ -18,4 +21,5 @@
     <string name="turn_on_bluetooth_notification_title">Please turn on bluetooth</string>
     <string name="turn_on_bluetooth_notification_description">%1$s requires bluetooth to be turn on to ensure your safety</string>
     <string name="app_blocked_message">Service of this app is temporarily unavailable</string>
+    <string name="bluetooth_not_available">Bluetooth not available in this device. So unable to start.</string>
 </resources>

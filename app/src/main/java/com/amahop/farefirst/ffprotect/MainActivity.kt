@@ -39,9 +39,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun showHomeScreen() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+        HomeActivity.handleShowHomeActivity(this)
     }
 
     private fun showMessage(rId: Int) {

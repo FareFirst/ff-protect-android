@@ -53,7 +53,7 @@ class SyncManger(private val context: Context) {
             val trackers = DBProvider.getDB(context).trackerDao().trackersToBeSync(syncTime)
 
             if (trackers.isEmpty()) {
-                LogManager.d(TAG, "Nothing top sync")
+                LogManager.d(TAG, "Nothing to sync")
                 listener(SyncWorker.Companion.ResultStatus.SUCCESS)
                 return@launch
             }

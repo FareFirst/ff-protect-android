@@ -1,13 +1,10 @@
 package com.amahop.farefirst.ffprotect
 
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import com.amahop.farefirst.ffprotect.utils.AppBarConfigurer
-import com.amahop.farefirst.ffprotect.utils.LogManager
-import com.amahop.farefirst.ffprotect.utils.RemoteConfigManager
-import com.amahop.farefirst.ffprotect.utils.WorkerHelper
+import com.amahop.farefirst.ffprotect.utils.*
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
@@ -28,7 +25,18 @@ class SplashScreenActivity : BaseActivity() {
         setupStatusBarHeight()
         updateAndroidSecurityProvider()
         makeGooglePlayServiceAvailable().addOnCompleteListener {
+            Handler().postDelayed({
+                setup()
+            }, 1000)
+        }
+    }
+
+    private fun setup() {
+        if (BluetoothHelper.isBluetoothAvailable()) {
             setupRemoteConfig()
+        } else {
+            Toast.makeText(this, R.string.bluetooth_not_available, Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 
@@ -40,9 +48,7 @@ class SplashScreenActivity : BaseActivity() {
                 Toast.makeText(this, R.string.app_blocked_message, Toast.LENGTH_LONG).show()
                 return@init
             }
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            HomeActivity.handleShowHomeActivity(this)
         }
     }
 

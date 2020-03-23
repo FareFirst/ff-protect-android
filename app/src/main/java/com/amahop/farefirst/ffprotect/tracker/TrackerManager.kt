@@ -32,7 +32,7 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
             throw AppBlockedException()
         }
 
-        if (!PermissionHelper.isLocationPermissionGranted()) {
+        if (!PermissionHelper.isLocationPermissionGranted(this.context)) {
             throw LocationPermissionNotGrantedException()
         }
 

@@ -1,11 +1,12 @@
 package com.amahop.farefirst.ffprotect
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
 import com.amahop.farefirst.ffprotect.utils.AuthManger
+import com.amahop.farefirst.ffprotect.utils.PermissionHelper
 import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -13,6 +14,21 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         const val TAG = "HomeActivity"
+
+        fun handleShowHomeActivity(activity: BaseActivity) {
+            var clazz: Class<BaseActivity> = HomeActivity::class.java as Class<BaseActivity>
+            if (AuthManger.isSignedIn()) {
+                if (!PermissionHelper.isLocationPermissionGranted(activity)) {
+                    clazz = PermissionActivity::class.java as Class<BaseActivity>
+                }
+            } else {
+                clazz = MainActivity::class.java as Class<BaseActivity>
+            }
+
+            val intent = Intent(activity, clazz)
+            activity.startActivity(intent)
+            activity.finish()
+        }
     }
 
     private var trackerManager: TrackerManager? = null

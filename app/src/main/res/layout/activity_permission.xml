@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/farefirst_gradient_drawable"
-    tools:context="com.amahop.farefirst.ffprotect.MainActivity">
+    tools:context="com.amahop.farefirst.ffprotect.PermissionActivity">
 
     <View
         android:id="@+id/statusBarBg"
@@ -26,13 +26,13 @@
         style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/flSignBtn"
+        android:layout_above="@+id/flBtnGetStarted"
         android:layout_marginBottom="30dp"
         android:padding="@dimen/dp_16"
-        android:text="@string/sign_in_request" />
+        android:text="@string/permission_request" />
 
     <FrameLayout
-        android:id="@+id/flSignBtn"
+        android:id="@+id/flBtnGetStarted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -41,10 +41,10 @@
         android:padding="@dimen/dp_16">
 
         <Button
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btnGetStarted"
             style="@style/FFButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in" />
+            android:text="@string/get_started" />
     </FrameLayout>
 </RelativeLayout>

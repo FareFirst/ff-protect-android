@@ -13,7 +13,7 @@ object LocationHelper {
             return
         }
 
-        if (!PermissionHelper.isLocationPermissionGranted()) {
+        if (!PermissionHelper.isLocationPermissionGranted(context)) {
             LogManager.d(SyncManger.TAG, "Location permission not granted")
             listener(null)
             return

@@ -78,4 +78,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
     implementation 'org.conscrypt:conscrypt-android:2.4.0'
+    implementation 'com.karumi:dexter:6.0.2'
 }

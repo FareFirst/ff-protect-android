@@ -25,6 +25,7 @@
 
 
         <activity android:name="com.amahop.farefirst.ffprotect.MainActivity" />
+        <activity android:name="com.amahop.farefirst.ffprotect.PermissionActivity" />
 
         <activity
             android:name="com.amahop.farefirst.ffprotect.HomeActivity"

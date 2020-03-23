@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/farefirst_gradient_drawable"
-    tools:context="com.amahop.farefirst.ffprotect.MainActivity">
+    tools:context="com.amahop.farefirst.ffprotect.SplashScreenActivity">
 
     <View
         android:id="@+id/statusBarBg"
