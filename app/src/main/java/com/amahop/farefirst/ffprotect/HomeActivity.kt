@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
+import com.amahop.farefirst.ffprotect.utils.AppBarConfigurer
 import com.amahop.farefirst.ffprotect.utils.AuthManger
 import com.amahop.farefirst.ffprotect.utils.PermissionHelper
 import com.amahop.farefirst.ffprotect.utils.WorkerHelper
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.view_app_bar.*
 
 class HomeActivity : BaseActivity(), View.OnClickListener {
 
@@ -48,7 +50,19 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupViews() {
+        setSupportActionBar(toolbar)
+        configureAppBar()
         btnSignOut.setOnClickListener(this)
+    }
+
+    private fun configureAppBar() {
+        supportActionBar?.let { actionBar ->
+            toolbarBg?.let { tBg ->
+                AppBarConfigurer.initialize(this, actionBar, tBg)
+                    .setLogo(R.drawable.ic_ff_protect_wrting_shield_logo)
+                    .apply()
+            }
+        }
     }
 
     override fun onClick(v: View?) {

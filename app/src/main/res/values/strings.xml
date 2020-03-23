@@ -5,7 +5,6 @@
     <string name="permission_request">Please grand the location permission to continue. This app primarily works using Bluetooth low energy technology. For this to work, we need the location permission. We also track your location, but if you don\'t want that, please opt-out from the app settings.
 </string>
     <string name="get_started">Get started</string>
-    <string name="welcome_home">Welcome home</string>
     <string name="sign_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">Unknown error</string>
