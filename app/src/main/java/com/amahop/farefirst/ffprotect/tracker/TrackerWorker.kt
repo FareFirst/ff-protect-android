@@ -43,7 +43,7 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
                 }
             } catch (err: Throwable) {
                 if (err is SoftException) {
-                    LogManager.d(TAG, "SKIPPED - ${params.id}", err)
+                    LogManager.d(TAG, "SKIPPED - ${params.id} - ${err.message}")
                     completer.set(Result.success())
                     return@getFuture completer
                 }

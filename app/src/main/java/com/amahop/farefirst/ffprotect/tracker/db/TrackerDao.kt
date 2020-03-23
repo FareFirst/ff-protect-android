@@ -9,10 +9,10 @@ interface TrackerDao {
     @Insert
     suspend fun insertAll(trackers: ArrayList<Tracker>)
 
-    @Query("SELECT * FROM trackers WHERE createdAt < :syncedAt LIMIT 5000")
+    @Query("SELECT * FROM trackers WHERE createdAt < :syncedAt LIMIT 1000")
     suspend fun trackersToBeSync(syncedAt: Long): Array<Tracker>
 
     // IN query is a hack to avoid limitation of LIMIT in SQLLite for DELETE
-    @Query("DELETE FROM trackers WHERE id IN (SELECT id FROM trackers WHERE createdAt < :syncedAt LIMIT 5000)")
+    @Query("DELETE FROM trackers WHERE id IN (SELECT id FROM trackers WHERE createdAt < :syncedAt LIMIT 1000)")
     suspend fun deleteSynced(syncedAt: Long)
 }
