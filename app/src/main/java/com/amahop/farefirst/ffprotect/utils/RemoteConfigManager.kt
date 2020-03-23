@@ -15,9 +15,9 @@ object RemoteConfigManager {
         val remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = if (BuildConfig.DEBUG) {
-                TimeUnit.HOURS.toSeconds(24)
-            } else {
                 TimeUnit.HOURS.toSeconds(2)
+            } else {
+                TimeUnit.HOURS.toSeconds(24)
             }
             fetchTimeoutInSeconds = 10
         }
