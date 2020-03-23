@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.amahop.farefirst.ffprotect.utils.AppBarConfigurer
 import com.amahop.farefirst.ffprotect.utils.AuthManger
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -12,17 +13,19 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupToolbar()
+        setupStatusBarHeight()
         setupViews()
         handleAuth()
     }
 
-    private fun setupViews() {
-        btnSignIn.setOnClickListener(this)
+    private fun setupStatusBarHeight() {
+        AppBarConfigurer.fetchStatusBarHeight(this, statusBarBg) {
+            statusBarBg?.layoutParams?.height = it.toInt()
+        }
     }
 
-    private fun setupToolbar() {
-        supportActionBar?.setTitle(R.string.welcome)
+    private fun setupViews() {
+        btnSignIn.setOnClickListener(this)
     }
 
     private fun handleAuth() {

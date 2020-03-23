@@ -2,5 +2,6 @@
 <resources>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_32">32dp</dimen>
-    <dimen name="sign_in_activity_logo_margin_top">140dp</dimen>
+    <dimen name="sign_in_activity_logo_margin_top">116dp</dimen>
+    <dimen name="android_status_bar_height">24dp</dimen>
 </resources>

@@ -7,9 +7,16 @@
     android:background="@drawable/farefirst_gradient_drawable"
     tools:context="com.amahop.farefirst.ffprotect.MainActivity">
 
+    <View
+        android:id="@+id/statusBarBg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/android_status_bar_height"
+        android:visibility="invisible" />
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/statusBarBg"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/sign_in_activity_logo_margin_top"
         app:srcCompat="@drawable/ic_splash_logo" />

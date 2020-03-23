@@ -1,7 +1,9 @@
 package com.amahop.farefirst.ffprotect.utils
 
 import android.content.Context
+import android.content.res.Configuration
 import android.telephony.TelephonyManager
+import com.amahop.farefirst.ffprotect.R
 import java.util.*
 
 object SystemUtils {
@@ -36,5 +38,13 @@ object SystemUtils {
         }
 
         return tm.simCountryIso.toUpperCase(Locale.US)
+    }
+
+    fun isLandscapeOrientation(context: Context): Boolean {
+        return context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    }
+
+    fun getStatusBarHeight(context: Context): Float {
+        return context.resources.getDimension(R.dimen.android_status_bar_height)
     }
 }
