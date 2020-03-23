@@ -3,8 +3,7 @@
     <color name="colorPrimary">#0060ec</color>
     <color name="colorPrimaryDark">#0b2fba</color>
     <color name="colorPrimaryMedium">#0c43ce</color>
-    <color name="colorAccent">#39c4a5</color>
-    <color name="colorAccentSelector">#4050E3C2</color>
+    <color name="colorAccent">#32bd42</color>
 
     <color name="danger">#F44336</color>
 

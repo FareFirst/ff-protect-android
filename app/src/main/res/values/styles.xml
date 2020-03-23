@@ -6,17 +6,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:itemBackground">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.Transparent" parent="Base">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
-
-    <style name="Toolbar" parent="Theme.AppCompat">
+    <style name="Toolbar" parent="Theme.MaterialComponents">
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
@@ -26,35 +19,4 @@
     </style>
 
     <style name="AppTheme" parent="Base" />
-
-    <style name="FFButton" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:background">@drawable/selector_ff_bt</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="FFBorderlessButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:fontFamily">@string/font_family_medium</item>
-        <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:bottom">5dp</item>
-        <item name="android:left">19dp</item>
-        <item name="android:right">5dp</item>
-        <item name="android:top">5dp</item>
-    </style>
-
-    <style name="Caption">
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="DefaultCardStyle">
-        <item name="cardCornerRadius">4dp</item>
-        <item name="cardElevation">2dp</item>
-        <item name="contentPadding">@dimen/dp_16</item>
-    </style>
-
 </resources>

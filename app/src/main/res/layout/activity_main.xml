@@ -23,13 +23,16 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/flSignBtn"
         android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:padding="@dimen/dp_16"
-        android:text="@string/sign_in_request" />
+        android:text="@string/sign_in_request"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
 
     <FrameLayout
         android:id="@+id/flSignBtn"
@@ -42,7 +45,7 @@
 
         <Button
             android:id="@+id/btnSignIn"
-            style="@style/FFButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in" />

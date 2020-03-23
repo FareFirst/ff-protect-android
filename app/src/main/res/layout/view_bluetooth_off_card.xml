@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/DefaultCardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:elevation="2dp"
     android:focusable="true"
-    app:cardBackgroundColor="@color/danger">
+    app:cardBackgroundColor="@color/danger"
+    app:contentPadding="@dimen/dp_16">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,4 +19,4 @@
             android:layout_height="wrap_content"
             android:text="Hello World" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
