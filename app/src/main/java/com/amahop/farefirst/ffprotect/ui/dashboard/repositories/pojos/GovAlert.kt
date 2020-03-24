@@ -11,4 +11,6 @@ enum class GovAlert(val value: String) {
     BLUE("blue"),
     @SerializedName("green")
     GREEN("green"),
+    @SerializedName("default")
+    DEFAULT("default")
 }

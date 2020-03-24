@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textAppearance="?textAppearanceBody2" />
+                android:textAppearance="?attr/textAppearanceBody2" />
 
             <ProgressBar
                 android:id="@+id/pbLoading"
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/ui_data_load_error_message"
-                    android:textAppearance="?textAppearanceBody2"
+                    android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?colorError" />
 
                 <Button

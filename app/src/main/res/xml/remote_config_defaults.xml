@@ -56,4 +56,12 @@
         <key>dashboard_base_url</key>
         <value>https://5e77a398e3fd85001601f9c3.mockapi.io/api/v1/</value>
     </entry>
+    <entry>
+        <key>faq_url</key>
+        <value>https://farefirst-debug.firebaseapp.com/terms-of-use?no_frame=1</value>
+    </entry>
+    <entry>
+        <key>project_source_url</key>
+        <value>https://github.com/FareFirst/ff-protect-android</value>
+    </entry>
 </defaultsMap>

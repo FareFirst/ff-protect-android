@@ -46,13 +46,16 @@ object AuthManger {
         )
     }
 
-    fun requestSignOut(activity: Activity, errorListener: () -> Unit) {
+    fun requestSignOut(activity: Activity, listener: (isSuccess: Boolean) -> Unit) {
         AuthUI.getInstance().signOut(activity).addOnCompleteListener { task ->
 
             if (task.isSuccessful) {
                 WorkerHelper.cancelAllPeriodicWorkers(
                     activity
                 )
+
+                listener(true)
+                
                 val intent = Intent(
                     activity,
                     MainActivity::class.java
@@ -60,7 +63,7 @@ object AuthManger {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 activity.startActivity(intent)
             } else {
-                errorListener()
+                listener(false)
             }
         }
     }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ff_bg_color"
+    android:orientation="vertical"
+    tools:context="com.amahop.farefirst.ffprotect.AboutActivity">
+
+    <FrameLayout
+        android:id="@+id/toolbarBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/view_app_bar" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/screen_horizontal_spacing"
+            android:paddingTop="@dimen/dp_16"
+            android:paddingRight="@dimen/screen_horizontal_spacing">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_16">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_ff_protect_circle_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="@string/app_name"
+                        android:textAppearance="?textAppearanceHeadline5" />
+
+                    <TextView
+                        android:id="@+id/tvVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:textAppearance="?textAppearanceSubtitle1"
+                        tools:text="Version 1.1.1 (Staging)" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:gravity="center"
+                        android:text="@string/app_description"
+                        android:textAppearance="?textAppearanceBody2" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <include
+                layout="@layout/view_built_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16" />
+
+            <com.amahop.farefirst.ffprotect.ui.components.ListItemCardView
+                android:id="@+id/lcvRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                app:icon="@drawable/ic_star_black_24dp"
+                app:title="@string/rate_this_app" />
+
+            <com.amahop.farefirst.ffprotect.ui.components.ListItemCardView
+                android:id="@+id/lcvFaq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                app:icon="@drawable/ic_help_black_24dp"
+                app:title="@string/faq" />
+
+            <com.amahop.farefirst.ffprotect.ui.components.ListItemCardView
+                android:id="@+id/lcvPrivacyPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                app:icon="@drawable/ic_lock_black_24dp"
+                app:title="@string/privacy_policy" />
+
+            <com.amahop.farefirst.ffprotect.ui.components.ListItemCardView
+                android:id="@+id/lcvTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                app:icon="@drawable/ic_receipt_black_24dp"
+                app:title="@string/terms_and_conditions" />
+
+            <com.amahop.farefirst.ffprotect.ui.components.ListItemCardView
+                android:id="@+id/lcvProjectSource"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_32"
+                app:icon="@drawable/ic_github"
+                app:title="@string/project_source" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

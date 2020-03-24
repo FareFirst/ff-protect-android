@@ -15,4 +15,9 @@
         <attr name="errorLogo" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ListItemCardView">
+        <attr name="title" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
 </resources>

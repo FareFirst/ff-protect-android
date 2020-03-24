@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -212,11 +211,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
         when (v.id) {
             R.id.btnShare -> onClickShareButton()
-            R.id.cvBuiltBy -> onClickGotoFareFirst()
+            R.id.cvBuiltBy -> onClickBuiltBy()
         }
     }
 
-    private fun onClickGotoFareFirst() {
+    private fun onClickBuiltBy() {
         BrowserUtils.openInChromeTabOrExternalBrowser(
             this,
             RemoteConfigManager.getGotoFareFirstUrl()
@@ -231,20 +230,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         startActivity(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
     }
 
-//    private fun onClickSignOut() {
-//        btnSignOut.isEnabled = false
-//        btnSignOut.setText(R.string.please_wait)
-//        AuthManger.requestSignOut(this) {
-//            btnSignOut?.isEnabled = true
-//            btnSignOut?.setText(R.string.sign_out)
-//            Toast.makeText(
-//                this,
-//                R.string.failed_to_sign_out,
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.home_menu, menu)
@@ -258,11 +243,16 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 true
             }
             R.id.about -> {
-                Toast.makeText(this, "Show about", Toast.LENGTH_SHORT).show()
+                showAboutActivity()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showAboutActivity() {
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showSettingsActivity() {

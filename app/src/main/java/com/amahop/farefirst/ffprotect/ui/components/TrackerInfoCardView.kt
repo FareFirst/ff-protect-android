@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffprotect.ui.dashboard.customviews
+package com.amahop.farefirst.ffprotect.ui.components
 
 import android.content.Context
 import android.util.AttributeSet
@@ -84,6 +84,7 @@ class TrackerInfoCardView(context: Context, attrs: AttributeSet) :
                 GovAlert.YELLOW -> R.color.alert_yellow
                 GovAlert.BLUE -> R.color.alert_blue
                 GovAlert.GREEN -> R.color.alert_green
+                GovAlert.DEFAULT -> android.R.color.black
             }
             tvMessage.setTextColor(ContextCompat.getColor(context, colorRId))
         }
