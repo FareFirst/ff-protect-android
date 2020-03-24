@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/flSignBtn"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="@dimen/launch_activities_caption_margin_bottom"
         android:gravity="center"
         android:padding="@dimen/dp_16"
         android:text="@string/sign_in_request"

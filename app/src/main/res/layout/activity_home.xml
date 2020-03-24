@@ -40,6 +40,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp_16" />
 
+                <com.amahop.farefirst.ffprotect.ui.dashboard.customview.InfoCardView
+                    android:id="@+id/icHowItWorks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    app:message="@string/how_it_works_message"
+                    app:title="@string/how_it_works_title" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvTmp"
                     android:layout_width="match_parent"

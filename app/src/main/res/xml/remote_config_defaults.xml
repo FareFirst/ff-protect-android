@@ -40,4 +40,8 @@
         <key>terms_url</key>
         <value>https://farefirst-debug.firebaseapp.com/terms-of-use?no_frame=1</value>
     </entry>
+    <entry>
+        <key>how_it_works_url</key>
+        <value>https://farefirst-debug.firebaseapp.com/terms-of-use?no_frame=1</value>
+    </entry>
 </defaultsMap>

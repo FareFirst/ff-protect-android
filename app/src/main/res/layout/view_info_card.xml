@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:elevation="2dp">
+    app:cardBackgroundColor="@color/colorAccentSurface"
+    app:elevation="0dp"
+    app:strokeColor="@color/colorAccentSurfaceBoarder"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,21 +23,20 @@
             android:paddingRight="@dimen/dp_16">
 
             <TextView
-                android:id="@+id/tvBluetoothDisabled"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/dp_8"
-                android:text="@string/bluetooth_not_enabled_error_title"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="?colorError" />
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                tool:text="@string/how_it_works_title" />
 
             <TextView
+                android:id="@+id/tvMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
-                android:text="@string/bluetooth_not_enabled_error_description"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?colorError" />
+                tool:text="@string/how_it_works_message" />
         </LinearLayout>
 
         <LinearLayout
@@ -43,11 +46,11 @@
             android:paddingRight="@dimen/dp_8">
 
             <Button
-                android:id="@+id/btnEnable"
+                android:id="@+id/btnKnowMore"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/enable" />
+                android:text="@string/know_more" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

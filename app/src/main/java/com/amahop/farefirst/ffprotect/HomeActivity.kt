@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
@@ -19,6 +20,7 @@ import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
 import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothStatusChangeObserver
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.view_app_bar.*
+import kotlinx.android.synthetic.main.view_bluetooth_off_card.*
 
 class HomeActivity : BaseActivity(), View.OnClickListener {
 
@@ -103,9 +105,29 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     private fun setupViews() {
         setSupportActionBar(toolbar)
         configureAppBar()
+
         btnSignOut.setOnClickListener(this)
-        cvBluetoothOff.setOnClickListener(this)
+
+        setupBluetoothDisabledCard()
+        setupHowItWorks()
         setupSwipeToRefreshView()
+    }
+
+    private fun setupHowItWorks() {
+        icHowItWorks.onKnowMoreClicked {
+            BrowserUtils.openInChromeTabOrExternalBrowser(
+                this,
+                RemoteConfigManager.getHowItWorksUrl()
+            )
+        }
+    }
+
+    private fun setupBluetoothDisabledCard() {
+        val drawable =
+            AppCompatResources.getDrawable(this, R.drawable.ic_bluetooth_disabled_error_24dp)
+
+        tvBluetoothDisabled.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        btnEnable.setOnClickListener(this)
     }
 
     private fun setupSwipeToRefreshView() {
@@ -134,7 +156,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
         when (v.id) {
             R.id.btnSignOut -> onClickSignOut()
-            R.id.cvBluetoothOff -> onClickTurnOnBluetooth()
+            R.id.btnEnable -> onClickTurnOnBluetooth()
         }
     }
 

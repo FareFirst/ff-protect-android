@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#0b2fba</color>
     <color name="colorPrimaryMedium">#0c43ce</color>
     <color name="colorAccent">#32bd42</color>
-
-    <color name="danger">#F44336</color>
+    <color name="colorAccentSurfaceBoarder">#3332BD42</color>
+    <color name="colorAccentSurface">#1432BD42</color>
 
     <color name="label_grey">#828393</color>
     <color name="grey_404046">#404046</color>

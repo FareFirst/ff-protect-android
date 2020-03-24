@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_32">32dp</dimen>
     <dimen name="launch_activities_logo_margin_top">116dp</dimen>
     <dimen name="android_status_bar_height">24dp</dimen>
     <dimen name="screen_horizontal_spacing">16dp</dimen>
+    <dimen name="launch_activities_caption_margin_bottom">30dp</dimen>
 </resources>

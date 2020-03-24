@@ -26,9 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/flBtnGetStarted"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="@dimen/launch_activities_caption_margin_bottom"
         android:gravity="center"
         android:padding="@dimen/dp_16"
+        android:text="@string/permission_request"
         android:textAppearance="?textAppearanceBody1"
         android:textColor="@android:color/white"
         android:textSize="15sp" />
