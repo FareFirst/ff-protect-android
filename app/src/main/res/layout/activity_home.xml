@@ -38,7 +38,7 @@
                     android:paddingTop="@dimen/dp_16"
                     android:paddingRight="@dimen/screen_horizontal_spacing">
 
-                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.ErrorCardView
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customviews.ErrorCardView
                         android:id="@+id/cvBluetoothOff"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         app:message="@string/bluetooth_not_enabled_error_description"
                         app:title="@string/bluetooth_not_enabled_error_title" />
 
-                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.ErrorCardView
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customviews.ErrorCardView
                         android:id="@+id/cvTrackerOff"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -58,13 +58,13 @@
                         app:message="@string/tracker_off_description"
                         app:title="@string/tracker_off_title" />
 
-                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.TrackerInfoCardView
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customviews.TrackerInfoCardView
                         android:id="@+id/trackerInfoView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dp_16" />
 
-                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.InfoCardView
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customviews.InfoCardView
                         android:id="@+id/icHowItWorks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

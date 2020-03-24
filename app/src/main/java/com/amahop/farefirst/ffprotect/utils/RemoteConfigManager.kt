@@ -72,6 +72,7 @@ object RemoteConfigManager {
     private const val RC_KEY_HOW_IT_WORKS_URL = "how_it_works_url"
     private const val RC_KEY_APP_SHARE_URL = "app_share_url"
     private const val RC_KEY_GOTO_FAREFIRST_URL = "goto_farefirst_url"
+    private const val RC_KEY_DASHBOARD_BASE_URL = "dashboard_base_url"
 
     fun isAppBlocked(): Boolean {
         return Firebase.remoteConfig.getBoolean(RC_KEY_IS_APP_BLOCKED)
@@ -125,5 +126,7 @@ object RemoteConfigManager {
         return Firebase.remoteConfig.getString(RC_KEY_GOTO_FAREFIRST_URL)
     }
 
-
+    fun getDashboardBaseUrl(): String {
+        return Firebase.remoteConfig.getString(RC_KEY_DASHBOARD_BASE_URL)
+    }
 }

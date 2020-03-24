@@ -136,9 +136,21 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         model.phoneNumber.observe(this, Observer {
             trackerInfoView.setPhoneNumber(it)
         })
+        model.isGovMessageFetchLoading.observe(this, Observer {
+            trackerInfoView.setIsLoading(it)
+        })
+        model.isGovMessageFetchFailed.observe(this, Observer {
+            trackerInfoView.setIsError(it)
+        })
+        model.govMessage.observe(this, Observer {
+            trackerInfoView.setMessage(it)
+        })
+
+        trackerInfoView.setOnRetryClickListener {
+            model.fetchGovMessage()
+        }
 
         TrackerStatusObserver(trackerManager) {
-            Log.d(TAG, "Tracker running status changed to => $it")
             model.setIsTrackerRunning(it)
         }.registerLifecycle(lifecycle)
     }

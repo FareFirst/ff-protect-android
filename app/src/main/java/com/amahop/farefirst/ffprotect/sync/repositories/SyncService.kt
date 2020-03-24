@@ -1,6 +1,6 @@
-package com.amahop.farefirst.ffprotect.sync.network
+package com.amahop.farefirst.ffprotect.sync.repositories
 
-import com.amahop.farefirst.ffprotect.sync.network.pojo.SyncData
+import com.amahop.farefirst.ffprotect.sync.repositories.pojos.SyncData
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body

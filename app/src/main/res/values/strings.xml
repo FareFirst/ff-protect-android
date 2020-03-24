@@ -62,4 +62,6 @@
     <string name="never_synced">Never synced</string>
     <string name="phone_number">Phone number</string>
     <string name="unknown">Unknown</string>
+    <string name="ui_data_load_error_message">Error while loading data. Please check your internet connection.</string>
+    <string name="retry">Retry</string>
 </resources>

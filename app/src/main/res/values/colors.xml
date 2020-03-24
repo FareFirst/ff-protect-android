@@ -15,4 +15,9 @@
     <color name="label_grey">#828393</color>
     <color name="grey_404046">#404046</color>
     <color name="grey_e1e1e6">#e1e1e6</color>
+
+    <color name="alert_red">#D32F2F</color>
+    <color name="alert_yellow">#FFAD09</color>
+    <color name="alert_blue">#1976D2</color>
+    <color name="alert_green">#42A947</color>
 </resources>

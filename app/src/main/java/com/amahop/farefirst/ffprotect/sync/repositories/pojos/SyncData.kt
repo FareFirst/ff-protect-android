@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffprotect.sync.network.pojo
+package com.amahop.farefirst.ffprotect.sync.repositories.pojos
 
 import com.amahop.farefirst.ffprotect.tracker.db.Tracker
 

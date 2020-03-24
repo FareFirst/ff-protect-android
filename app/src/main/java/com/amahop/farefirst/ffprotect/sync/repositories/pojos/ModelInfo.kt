@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffprotect.sync.network.pojo
+package com.amahop.farefirst.ffprotect.sync.repositories.pojos
 
 import android.os.Build
 

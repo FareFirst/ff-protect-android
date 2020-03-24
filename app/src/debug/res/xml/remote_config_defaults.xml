@@ -52,4 +52,8 @@
         <key>goto_farefirst_url</key>
         <value>https://www.farefirst.com</value>
     </entry>
+    <entry>
+        <key>dashboard_base_url</key>
+        <value>https://5e77a398e3fd85001601f9c3.mockapi.io/api/v1/</value>
+    </entry>
 </defaultsMap>

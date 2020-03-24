@@ -4,9 +4,9 @@ import android.content.Context
 import android.location.Location
 import com.amahop.farefirst.ffprotect.db.DBProvider
 import com.amahop.farefirst.ffprotect.network.ApiServiceFactory
-import com.amahop.farefirst.ffprotect.sync.network.SyncService
-import com.amahop.farefirst.ffprotect.sync.network.pojo.Device
-import com.amahop.farefirst.ffprotect.sync.network.pojo.SyncData
+import com.amahop.farefirst.ffprotect.sync.repositories.SyncService
+import com.amahop.farefirst.ffprotect.sync.repositories.pojos.Device
+import com.amahop.farefirst.ffprotect.sync.repositories.pojos.SyncData
 import com.amahop.farefirst.ffprotect.utils.*
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
@@ -17,12 +17,12 @@ import retrofit2.Response
 
 class SyncManger(private val context: Context) {
     companion object {
-        const val TAG = "SyncManger"
+        private const val TAG = "SyncManger"
     }
 
     fun sync(listener: (status: SyncWorker.Companion.ResultStatus) -> Unit) {
         AuthManger.getCurrentUser()?.let { currentUser ->
-            AuthManger.getBearerToken() { bearerToken ->
+            AuthManger.getBearerToken { bearerToken ->
                 if (bearerToken == null) {
                     LogManager.e(TAG, "Bearer token is null")
                     listener(SyncWorker.Companion.ResultStatus.FAILED)
@@ -59,7 +59,7 @@ class SyncManger(private val context: Context) {
             }
 
             val loc = if (location != null) {
-                com.amahop.farefirst.ffprotect.sync.network.pojo.Location(
+                com.amahop.farefirst.ffprotect.sync.repositories.pojos.Location(
                     latitude = location.latitude,
                     longitude = location.longitude
                 )

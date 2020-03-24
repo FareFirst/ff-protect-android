@@ -1,4 +1,4 @@
-package com.amahop.farefirst.ffprotect.ui.dashboard.customview
+package com.amahop.farefirst.ffprotect.ui.dashboard.customviews
 
 import android.content.Context
 import android.util.AttributeSet
