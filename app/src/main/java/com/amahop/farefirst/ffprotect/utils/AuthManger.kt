@@ -115,4 +115,8 @@ object AuthManger {
             }
         }
     }
+
+    fun getPhoneNumber(): String? {
+        return getCurrentUser()?.phoneNumber
+    }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ff_bg_color"
     tools:context="com.amahop.farefirst.ffprotect.HomeActivity">
 
     <LinearLayout
@@ -44,6 +45,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dp_16" />
 
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.TrackerInfoCardView
+                        android:id="@+id/trackerInfoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16" />
+
                     <com.amahop.farefirst.ffprotect.ui.dashboard.customview.InfoCardView
                         android:id="@+id/icHowItWorks"
                         android:layout_width="match_parent"
@@ -52,7 +59,11 @@
                         app:message="@string/how_it_works_message"
                         app:title="@string/how_it_works_title" />
 
-                    <include layout="@layout/view_built_by" />
+                    <include
+                        layout="@layout/view_built_by"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16" />
 
 
                 </LinearLayout>

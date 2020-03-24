@@ -8,11 +8,14 @@ import com.amahop.farefirst.ffprotect.BuildConfig
 object Settings {
     private const val TAG = "Settings"
 
+    const val MIN_TIME = 0L
+
     const val PREF_KEY_IS_TRACKER_ON = "is_tracker_on"
     private const val PREF_KEY_ALLOW_TRACK_LOCATION = "allow_track_location"
     private const val PREF_KEY_IS_SHOW_BLUETOOTH_REQUIRED_NOTIFICATION =
         "is_show_bluetooth_required_notification"
     private const val PREF_KEY_FCM_TOKEN = "fcm_token"
+    private const val PREF_KEY_LAST_SYNCED_AT = "last_synced_at"
 
     private var context: Context? = null
 
@@ -51,5 +54,15 @@ object Settings {
 
     fun getFCMToken(): String? {
         return getSP().getString(PREF_KEY_FCM_TOKEN, null)
+    }
+
+    fun setLastSyncedAt(value: Long) {
+        val editor = getSP().edit()
+        editor.putLong(PREF_KEY_LAST_SYNCED_AT, value)
+        editor.apply()
+    }
+
+    fun getLastSyncedAt(): Long {
+        return getSP().getLong(PREF_KEY_LAST_SYNCED_AT, MIN_TIME)
     }
 }

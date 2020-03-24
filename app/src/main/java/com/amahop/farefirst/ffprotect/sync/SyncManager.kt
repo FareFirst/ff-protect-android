@@ -100,6 +100,7 @@ class SyncManger(private val context: Context) {
                                 }
                             }
                             in 200..299 -> {
+                                Settings.setLastSyncedAt(syncTime)
                                 GlobalScope.launch {
                                     DBProvider.getDB(context).trackerDao().deleteSynced(syncTime)
                                 }

@@ -28,6 +28,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     companion object {
         const val TAG = "HomeActivity"
 
+        private const val RC_SETTINGS = 1
+
         fun handleShowHomeActivity(activity: BaseActivity) {
             var clazz: Class<*> = HomeActivity::class.java
             if (AuthManger.isSignedIn()) {
@@ -47,34 +49,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     private var trackerManager: TrackerManager? = null
     private var isTrackerManagerStarted = false
 
+    private val model: DashboardViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupViews()
-        initViewModel()
         setupTracker()
-    }
-
-    private fun initViewModel() {
-        val model: DashboardViewModel by viewModels()
-        handleBluetoothChanges(model)
-    }
-
-    private fun handleBluetoothChanges(model: DashboardViewModel) {
-        model.isBluetoothOn.observe(this, Observer {
-            it?.let {
-                cvBluetoothOff.visibility = if (it) {
-                    View.GONE
-                } else {
-                    View.VISIBLE
-                }
-            }
-        })
-        BluetoothStatusChangeObserver(this) {
-            Log.d(TAG, "Status changed")
-            model.refreshBluetoothStatus()
-            startTracker()
-        }.registerLifecycle(lifecycle)
     }
 
     private fun setupTracker() {
@@ -113,6 +94,19 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         setupBluetoothDisabledCard()
         setupHowItWorks()
         setupSwipeToRefreshView()
+        setupTrackerInfo()
+    }
+
+    private fun setupTrackerInfo() {
+        model.isTrackerRunning.observe(this, Observer {
+            trackerInfoView.setIsTrackerRunning(it)
+        })
+        model.lastSyncedAt.observe(this, Observer {
+            trackerInfoView.setLastSyncedAt(it)
+        })
+        model.phoneNumber.observe(this, Observer {
+            trackerInfoView.setPhoneNumber(it)
+        })
     }
 
     private fun setupHowItWorks() {
@@ -130,17 +124,32 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
         tvBluetoothDisabled.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
         btnEnable.setOnClickListener(this)
+
+        model.isBluetoothOn.observe(this, Observer {
+            it?.let {
+                cvBluetoothOff.visibility = if (it) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+            }
+        })
+        BluetoothStatusChangeObserver(this) {
+            Log.d(TAG, "Status changed")
+            model.refreshBluetoothStatus()
+            startTracker()
+        }.registerLifecycle(lifecycle)
     }
+
 
     private fun setupSwipeToRefreshView() {
         srLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
         srLayout.setOnRefreshListener {
-            refresh()
+            model.refreshAll()
         }
-    }
-
-    private fun refresh() {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        model.isLoading.observe(this, Observer {
+            srLayout.isRefreshing = it
+        })
     }
 
     private fun configureAppBar() {
@@ -214,11 +223,19 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
     private fun showSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, RC_SETTINGS)
     }
 
     override fun onDestroy() {
         trackerManager?.stop(TAG)
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            RC_SETTINGS -> model.refreshTrackStatus()
+        }
     }
 }

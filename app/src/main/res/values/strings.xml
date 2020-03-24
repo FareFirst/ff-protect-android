@@ -51,4 +51,13 @@
     <string name="built_by">Built by</string>
     <string name="farefirst">FareFirst</string>
     <string name="goto_farefirst">Goto FareFirst</string>
+    <string name="tracker_status">Tracker status</string>
+    <string name="last_synced_at">Last synced at</string>
+    <string name="message_from_us">Message from us</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="tracker_running">Running</string>
+    <string name="tracker_not_running">Not running</string>
+    <string name="never_synced">Never synced</string>
+    <string name="phone_number">Phone number</string>
+    <string name="unknown">Unknown</string>
 </resources>
