@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.amahop.farefirst.ffprotect.sync.repositories.pojos.** { *; }
+-keep class com.amahop.farefirst.ffprotect.tracker.db.** { *; }
+-keep com.amahop.farefirst.ffprotect.ui.dashboard.repositories.pojos.** { *; }

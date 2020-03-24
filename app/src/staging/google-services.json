@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "684579202163",
+    "firebase_url": "https://ff-protect-staging.firebaseio.com",
+    "project_id": "ff-protect-staging",
+    "storage_bucket": "ff-protect-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684579202163:android:6c03b5e19f74eea2f2b606",
+        "android_client_info": {
+          "package_name": "com.amahop.farefirst.ffprotect.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684579202163-9frdqc8l3jfnj3098llh6q7t0i16js1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amahop.farefirst.ffprotect.staging",
+            "certificate_hash": "aa24feea221d050becdb4dd275431415b79860b6"
+          }
+        },
+        {
+          "client_id": "684579202163-khcshlt6omneqac1apfv4tk3lrdbet9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH7fMFgAkbUwxynh9YEm1sYfIQTK9rBJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684579202163-khcshlt6omneqac1apfv4tk3lrdbet9a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,6 +40,12 @@ android {
             applicationIdSuffix ".debug"
             debuggable true
         }
+
+        staging {
+            initWith release
+            applicationIdSuffix ".staging"
+            matchingFallbacks = ['release']
+        }
     }
 
     compileOptions {
