@@ -88,4 +88,8 @@ object BeaconAdvertiser {
             }
         })
     }
+
+    fun isRunning(): Boolean {
+        return hashMap.isNotEmpty()
+    }
 }

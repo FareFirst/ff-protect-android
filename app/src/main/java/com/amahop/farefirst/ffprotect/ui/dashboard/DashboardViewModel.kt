@@ -10,7 +10,7 @@ class DashboardViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>(false)
     val isBluetoothOn = MutableLiveData<Boolean>(BluetoothHelper.isBluetoothEnabled())
-    val isTrackerRunning = MutableLiveData<Boolean>(Settings.isTrackerOn())
+    val isTrackerRunning = MutableLiveData<Boolean>(false)
     val lastSyncedAt = MutableLiveData<Long>(Settings.getLastSyncedAt())
     val phoneNumber = MutableLiveData(AuthManger.getPhoneNumber())
     val isTrackerOn = MutableLiveData(Settings.isTrackerOn())
@@ -19,26 +19,25 @@ class DashboardViewModel : ViewModel() {
         isBluetoothOn.postValue(BluetoothHelper.isBluetoothEnabled())
     }
 
-    fun refreshTrackRunningStatus() {
-        isTrackerRunning.postValue(Settings.isTrackerOn())
+    fun setIsTrackerRunning(value: Boolean) {
+        isTrackerRunning.postValue(value)
     }
 
-    fun refreshIsTrackerOn() {
+    private fun refreshIsTrackerOn() {
         isTrackerOn.postValue(Settings.isTrackerOn())
     }
 
-    fun refreshLastSyncedAt() {
+    private fun refreshLastSyncedAt() {
         lastSyncedAt.postValue(Settings.getLastSyncedAt())
     }
 
-    fun refreshPhoneNumber() {
+    private fun refreshPhoneNumber() {
         phoneNumber.postValue(AuthManger.getPhoneNumber())
     }
 
     fun refreshAll() {
         isLoading.postValue(true)
         refreshBluetoothStatus()
-        refreshTrackRunningStatus()
         refreshLastSyncedAt()
         refreshPhoneNumber()
         refreshIsTrackerOn()

@@ -57,6 +57,10 @@ class TrackerManager(private val context: Context) : BeaconConsumer {
         BeaconAdvertiser.stop(tag)
     }
 
+    fun isRunning(): Boolean {
+        return BeaconAdvertiser.isRunning()
+    }
+
     private fun setupMonitoring() {
         beaconManager = BeaconManager.getInstanceForApplication(this.context)
         beaconManager?.let {

@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
+import com.amahop.farefirst.ffprotect.tracker.TrackerStatusObserver
 import com.amahop.farefirst.ffprotect.ui.dashboard.DashboardViewModel
 import com.amahop.farefirst.ffprotect.utils.*
 import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
@@ -42,7 +43,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private var trackerManager: TrackerManager? = null
+    private lateinit var trackerManager: TrackerManager
     private var isTrackerManagerStarted = false
 
     private val model: DashboardViewModel by viewModels()
@@ -50,12 +51,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setupViews()
-        setupTracker()
-    }
-
-    private fun setupTracker() {
         trackerManager = TrackerManager(this)
+        setupViews()
         startTracker()
     }
 
@@ -78,7 +75,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         WorkerHelper.scheduleAllPeriodicWorkers(this)
 
         try {
-            trackerManager?.start(TAG, true)
+            trackerManager.start(TAG, true)
             isTrackerManagerStarted = true
             Log.d(TAG, "startTracker  => Success")
         } catch (th: Throwable) {
@@ -88,7 +85,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
     private fun stopTracker() {
         isTrackerManagerStarted = false
-        trackerManager?.stop(TAG)
+        trackerManager.stop(TAG)
     }
 
     private fun setupViews() {
@@ -139,6 +136,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         model.phoneNumber.observe(this, Observer {
             trackerInfoView.setPhoneNumber(it)
         })
+
+        TrackerStatusObserver(trackerManager) {
+            Log.d(TAG, "Tracker running status changed to => $it")
+            model.setIsTrackerRunning(it)
+        }.registerLifecycle(lifecycle)
     }
 
     private fun setupHowItWorks() {
