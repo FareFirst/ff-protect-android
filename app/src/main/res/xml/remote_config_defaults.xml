@@ -48,4 +48,8 @@
         <key>app_share_url</key>
         <value>https://goo.gl/qCAQip</value>
     </entry>
+    <entry>
+        <key>goto_farefirst_url</key>
+        <value>https://www.farefirst.com</value>
+    </entry>
 </defaultsMap>

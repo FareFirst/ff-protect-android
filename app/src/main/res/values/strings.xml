@@ -48,4 +48,7 @@
     <string name="how_it_works_title">How it works?</string>
     <string name="how_it_works_message">This app works by scanning your surroundings with a short interval to identify the people around you. And this information will be used to assure the safety and control the disease spreading.</string>
     <string name="share_string">Hi, Please use %1$s to assure the safety of you and the people around you. Download Now: %2$s</string>
+    <string name="built_by">Built by</string>
+    <string name="farefirst">FareFirst</string>
+    <string name="goto_farefirst">Goto FareFirst</string>
 </resources>

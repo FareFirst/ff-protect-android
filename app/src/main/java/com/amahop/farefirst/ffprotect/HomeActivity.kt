@@ -21,6 +21,7 @@ import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothStatusChangeObser
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.view_app_bar.*
 import kotlinx.android.synthetic.main.view_bluetooth_off_card.*
+import kotlinx.android.synthetic.main.view_built_by.*
 
 class HomeActivity : BaseActivity(), View.OnClickListener {
 
@@ -107,7 +108,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         configureAppBar()
 
         btnShare.setOnClickListener(this)
-        btnSignOut.setOnClickListener(this)
+        cvBuiltBy.setOnClickListener(this)
 
         setupBluetoothDisabledCard()
         setupHowItWorks()
@@ -139,7 +140,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun refresh() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun configureAppBar() {
@@ -156,10 +157,17 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         if (v == null) return
 
         when (v.id) {
-            R.id.btnSignOut -> onClickSignOut()
             R.id.btnEnable -> onClickTurnOnBluetooth()
             R.id.btnShare -> onClickShareButton()
+            R.id.cvBuiltBy -> onClickGotoFareFirst()
         }
+    }
+
+    private fun onClickGotoFareFirst() {
+        BrowserUtils.openInChromeTabOrExternalBrowser(
+            this,
+            RemoteConfigManager.getGotoFareFirstUrl()
+        )
     }
 
     private fun onClickShareButton() {
@@ -170,19 +178,19 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         startActivity(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
     }
 
-    private fun onClickSignOut() {
-        btnSignOut.isEnabled = false
-        btnSignOut.setText(R.string.please_wait)
-        AuthManger.requestSignOut(this) {
-            btnSignOut?.isEnabled = true
-            btnSignOut?.setText(R.string.sign_out)
-            Toast.makeText(
-                this,
-                R.string.failed_to_sign_out,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
+//    private fun onClickSignOut() {
+//        btnSignOut.isEnabled = false
+//        btnSignOut.setText(R.string.please_wait)
+//        AuthManger.requestSignOut(this) {
+//            btnSignOut?.isEnabled = true
+//            btnSignOut?.setText(R.string.sign_out)
+//            Toast.makeText(
+//                this,
+//                R.string.failed_to_sign_out,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater

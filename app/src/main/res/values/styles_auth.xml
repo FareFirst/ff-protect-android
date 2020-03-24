@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AuthTheme" parent="FirebaseUI">
+    <style name="AuthTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,6 +15,11 @@
         </item>
         <item name="navigationIcon">@drawable/ic_arrow_back_white_24dp</item>
 
-        <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="toolbarStyle">@style/ToolbarStyleAuth</item>
+    </style>
+
+    <style name="ToolbarStyleAuth" parent="ToolbarStyle">
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="colorOnPrimary">@color/colorAccent</item>
     </style>
 </resources>
