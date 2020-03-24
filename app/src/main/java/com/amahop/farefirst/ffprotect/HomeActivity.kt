@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.amahop.farefirst.ffprotect.tracker.TrackerManager
@@ -20,15 +19,12 @@ import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothHelper
 import com.amahop.farefirst.ffprotect.utils.bluetooth.BluetoothStatusChangeObserver
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.view_app_bar.*
-import kotlinx.android.synthetic.main.view_bluetooth_off_card.*
 import kotlinx.android.synthetic.main.view_built_by.*
 
 class HomeActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         const val TAG = "HomeActivity"
-
-        private const val RC_SETTINGS = 1
 
         fun handleShowHomeActivity(activity: BaseActivity) {
             var clazz: Class<*> = HomeActivity::class.java
@@ -59,8 +55,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupTracker() {
+        trackerManager = TrackerManager(this)
         startTracker()
-        WorkerHelper.scheduleAllPeriodicWorkers(this)
     }
 
     private fun startTracker() {
@@ -74,14 +70,25 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             return
         }
 
+        if (!Settings.isTrackerOn()) {
+            LogManager.w(TAG, "Skipping startTracker as tracking is off")
+            return
+        }
+
+        WorkerHelper.scheduleAllPeriodicWorkers(this)
+
         try {
-            trackerManager = TrackerManager(this)
             trackerManager?.start(TAG, true)
             isTrackerManagerStarted = true
             Log.d(TAG, "startTracker  => Success")
         } catch (th: Throwable) {
             LogManager.e(TAG, th.message, th)
         }
+    }
+
+    private fun stopTracker() {
+        isTrackerManagerStarted = false
+        trackerManager?.stop(TAG)
     }
 
     private fun setupViews() {
@@ -92,9 +99,34 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         cvBuiltBy.setOnClickListener(this)
 
         setupBluetoothDisabledCard()
+        setupTrackerOffCard()
         setupHowItWorks()
         setupSwipeToRefreshView()
         setupTrackerInfo()
+    }
+
+    private fun setupTrackerOffCard() {
+        cvTrackerOff.onEnableClicked {
+            Settings.setIsTrackerOn(true)
+            model.refreshAll()
+        }
+        model.isTrackerOn.observe(this, Observer {
+            if (it) {
+                cvTrackerOff.visibility = View.GONE
+            } else {
+                cvTrackerOff.visibility = View.VISIBLE
+            }
+
+            handleTrackerStartStop(it)
+        })
+    }
+
+    private fun handleTrackerStartStop(newDependancyValue: Boolean) {
+        if (isTrackerManagerStarted && !newDependancyValue) {
+            stopTracker()
+        } else if (!isTrackerManagerStarted && newDependancyValue) {
+            startTracker()
+        }
     }
 
     private fun setupTrackerInfo() {
@@ -119,11 +151,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupBluetoothDisabledCard() {
-        val drawable =
-            AppCompatResources.getDrawable(this, R.drawable.ic_bluetooth_disabled_error_24dp)
-
-        tvBluetoothDisabled.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        btnEnable.setOnClickListener(this)
+        cvBluetoothOff.onEnableClicked {
+            onClickTurnOnBluetooth()
+        }
 
         model.isBluetoothOn.observe(this, Observer {
             it?.let {
@@ -132,12 +162,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 } else {
                     View.VISIBLE
                 }
+
+                handleTrackerStartStop(it)
             }
         })
         BluetoothStatusChangeObserver(this) {
             Log.d(TAG, "Status changed")
             model.refreshBluetoothStatus()
-            startTracker()
         }.registerLifecycle(lifecycle)
     }
 
@@ -166,7 +197,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         if (v == null) return
 
         when (v.id) {
-            R.id.btnEnable -> onClickTurnOnBluetooth()
             R.id.btnShare -> onClickShareButton()
             R.id.cvBuiltBy -> onClickGotoFareFirst()
         }
@@ -223,19 +253,16 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
     private fun showSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
-        startActivityForResult(intent, RC_SETTINGS)
+        startActivity(intent)
     }
 
     override fun onDestroy() {
-        trackerManager?.stop(TAG)
+        stopTracker()
         super.onDestroy()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            RC_SETTINGS -> model.refreshTrackStatus()
-        }
+    override fun onResume() {
+        super.onResume()
+        model.refreshAll()
     }
 }

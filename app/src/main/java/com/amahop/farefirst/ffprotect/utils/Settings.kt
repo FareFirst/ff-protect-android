@@ -65,4 +65,10 @@ object Settings {
     fun getLastSyncedAt(): Long {
         return getSP().getLong(PREF_KEY_LAST_SYNCED_AT, MIN_TIME)
     }
+
+    fun setIsTrackerOn(value: Boolean) {
+        val editor = getSP().edit()
+        editor.putBoolean(PREF_KEY_IS_TRACKER_ON, value)
+        editor.apply()
+    }
 }

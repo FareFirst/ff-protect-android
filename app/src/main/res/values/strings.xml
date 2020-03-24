@@ -23,6 +23,8 @@
     <string name="bluetooth_not_enabled_error_title">Bluetooth not enabled!</string>
     <string name="bluetooth_not_enabled_error_description">This app requires Bluetooth to be turned on for its operation. Please turn it on and assure the safety of you and the people around you.</string>
     <string name="bluetooth_not_available">Bluetooth not available in this device. So unable to start.</string>
+    <string name="tracker_off_title">Tracker is off!</string>
+    <string name="tracker_off_description">@string/pref_tracking_summary_off</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
 

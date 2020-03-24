@@ -38,12 +38,25 @@
                     android:paddingTop="@dimen/dp_16"
                     android:paddingRight="@dimen/screen_horizontal_spacing">
 
-                    <include
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.ErrorCardView
                         android:id="@+id/cvBluetoothOff"
-                        layout="@layout/view_bluetooth_off_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_16" />
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:visibility="gone"
+                        app:errorLogo="@drawable/ic_bluetooth_disabled_error_24dp"
+                        app:message="@string/bluetooth_not_enabled_error_description"
+                        app:title="@string/bluetooth_not_enabled_error_title" />
+
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.ErrorCardView
+                        android:id="@+id/cvTrackerOff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:visibility="gone"
+                        app:errorLogo="@drawable/ic_ff_protect_shield"
+                        app:message="@string/tracker_off_description"
+                        app:title="@string/tracker_off_title" />
 
                     <com.amahop.farefirst.ffprotect.ui.dashboard.customview.TrackerInfoCardView
                         android:id="@+id/trackerInfoView"
