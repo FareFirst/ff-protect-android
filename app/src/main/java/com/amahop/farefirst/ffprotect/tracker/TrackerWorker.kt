@@ -15,7 +15,7 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
     ListenableWorker(context, params) {
 
     private var handler: Handler? = null
-    private val trackerManager: TrackerManager? = null
+    private var trackerManager: TrackerManager? = null
 
     companion object {
         const val TAG = "TrackerWorker"
@@ -30,13 +30,12 @@ class TrackerWorker(private val context: Context, private val params: WorkerPara
             LogManager.d(TAG, "STARTED - ${params.id}")
             RemoteConfigManager.init {
                 try {
-                    val trackerManager = TrackerManager(this.context)
-
-                    trackerManager.start(getRequestTag(), false)
+                    trackerManager = TrackerManager(this.context)
+                    trackerManager?.start(getRequestTag(), false)
 
                     handler = Handler()
                     handler?.postDelayed(Runnable {
-                        trackerManager.stop(getRequestTag())
+                        trackerManager?.stop(getRequestTag())
                         LogManager.d(TAG, "FINISHED - ${params.id}")
                         completer.set(Result.success())
                     }, TimeUnit.MINUTES.toMillis(20))
