@@ -1,70 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.amahop.farefirst.ffprotect.HomeActivity">
 
-    <FrameLayout
-        android:id="@+id/toolbarBg"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include layout="@layout/view_app_bar" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/toolbarBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <include layout="@layout/view_app_bar" />
+        </FrameLayout>
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/screen_horizontal_spacing"
-                android:paddingTop="@dimen/dp_16"
-                android:paddingRight="@dimen/screen_horizontal_spacing">
+                android:layout_height="match_parent">
 
-                <include
-                    android:id="@+id/cvBluetoothOff"
-                    layout="@layout/view_bluetooth_off_card"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_16" />
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/screen_horizontal_spacing"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingRight="@dimen/screen_horizontal_spacing">
 
-                <com.amahop.farefirst.ffprotect.ui.dashboard.customview.InfoCardView
-                    android:id="@+id/icHowItWorks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_16"
-                    app:message="@string/how_it_works_message"
-                    app:title="@string/how_it_works_title" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvTmp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/btnSignOut"
-                        android:layout_width="wrap_content"
+                    <include
+                        android:id="@+id/cvBluetoothOff"
+                        layout="@layout/view_bluetooth_off_card"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/sign_out"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_marginBottom="@dimen/dp_16" />
 
-            </LinearLayout>
-        </ScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</LinearLayout>
+                    <com.amahop.farefirst.ffprotect.ui.dashboard.customview.InfoCardView
+                        android:id="@+id/icHowItWorks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        app:message="@string/how_it_works_message"
+                        app:title="@string/how_it_works_title" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvTmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnSignOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_out"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dp_16"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_share_white_24dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -106,6 +106,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         setSupportActionBar(toolbar)
         configureAppBar()
 
+        btnShare.setOnClickListener(this)
         btnSignOut.setOnClickListener(this)
 
         setupBluetoothDisabledCard()
@@ -157,7 +158,12 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         when (v.id) {
             R.id.btnSignOut -> onClickSignOut()
             R.id.btnEnable -> onClickTurnOnBluetooth()
+            R.id.btnShare -> onClickShareButton()
         }
+    }
+
+    private fun onClickShareButton() {
+        ExternalActionHelper.shareApp(this)
     }
 
     private fun onClickTurnOnBluetooth() {

@@ -44,4 +44,8 @@
         <key>how_it_works_url</key>
         <value>https://farefirst-debug.firebaseapp.com/terms-of-use?no_frame=1</value>
     </entry>
+    <entry>
+        <key>app_share_url</key>
+        <value>https://goo.gl/qCAQip</value>
+    </entry>
 </defaultsMap>
