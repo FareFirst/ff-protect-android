@@ -2,7 +2,7 @@
     <string name="app_name">FF Protect</string>
     <string name="sign_in_request">Please sign in with your phone number to continue. Authority will be using this number to contact you in case of emergency.</string>
     <string name="sign_in">Sign in</string>
-    <string name="permission_request">Please grand the location permission to continue. This app primarily works using Bluetooth low energy technology. For this to work, we need the location permission. We also track your location, but if you don\'t want that, please opt-out from the app settings.
+    <string name="permission_request">Please grant the location permission to continue. This app primarily works using Bluetooth low energy technology. For this to work, we need the location permission. We also track your location, but if you don\'t want that, please opt-out from the app settings.
 </string>
     <string name="get_started">Get started</string>
     <string name="sign_cancelled">Sign in cancelled</string>
@@ -20,7 +20,7 @@
     <string name="turn_on_bluetooth_notification_description">%1$s requires bluetooth to be turn on to ensure your safety</string>
     <string name="app_blocked_message">Service of this app is temporarily unavailable</string>
     <string name="bluetooth_not_enabled_error_title">Bluetooth not enabled!</string>
-    <string name="bluetooth_not_enabled_error_description">This app requires Bluetooth to be turned on for its operation. Please turn it on and assure the safety of you and the people around you.</string>
+    <string name="bluetooth_not_enabled_error_description">This app requires Bluetooth to be turned on for its operation. Please turn it on to assure the safety of you and the people around you.</string>
     <string name="bluetooth_not_available">Bluetooth not available in this device. So unable to start.</string>
     <string name="tracker_off_title">Tracker is off!</string>
     <string name="tracker_off_description">@string/pref_tracking_summary_off</string>
