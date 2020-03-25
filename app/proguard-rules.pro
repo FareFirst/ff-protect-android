@@ -24,3 +24,4 @@
 -keep class com.amahop.farefirst.ffprotect.tracker.db.** { *; }
 -keep class com.amahop.farefirst.ffprotect.ui.dashboard.repositories.pojos.** { *; }
 -keepclassmembers enum com.amahop.farefirst.ffprotect.ui.dashboard.repositories.pojos.** { *; }
+-keepclassmembers enum * { *; }
