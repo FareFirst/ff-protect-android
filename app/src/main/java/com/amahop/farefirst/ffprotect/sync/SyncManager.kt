@@ -50,6 +50,8 @@ class SyncManger(private val context: Context) {
 
             val syncTime = System.currentTimeMillis()
 
+            Settings.setLastSyncedAt(syncTime)
+
             val trackers = DBProvider.getDB(context).trackerDao().trackersToBeSync(syncTime)
 
             if (trackers.isEmpty()) {
@@ -100,7 +102,6 @@ class SyncManger(private val context: Context) {
                                 }
                             }
                             in 200..299 -> {
-                                Settings.setLastSyncedAt(syncTime)
                                 GlobalScope.launch {
                                     DBProvider.getDB(context).trackerDao().deleteSynced(syncTime)
                                 }
