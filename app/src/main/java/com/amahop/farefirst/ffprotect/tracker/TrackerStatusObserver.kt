@@ -1,7 +1,5 @@
 package com.amahop.farefirst.ffprotect.tracker
 
-import android.bluetooth.BluetoothAdapter
-import android.content.IntentFilter
 import android.os.CountDownTimer
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -55,7 +53,6 @@ class TrackerStatusObserver(
             "onResume"
         )
         updateStatus()
-        val filter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
         startTimer()
     }
 
