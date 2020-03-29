@@ -11,7 +11,7 @@ FF protect is an open-source voluntary tracker app installed on a mobile phone r
 ## Why? How? Demo?
 Please watch this short video by FareFirst team: https://youtu.be/mHnu5omVSKw
 
-## Download the production ready apk for android phones
+## Download the production ready staging apk for android phones
 https://github.com/FareFirst/ff-protect-android/blob/master/releases/FF_Protect_0102.apk
 
 ## Presentation Slides & Project status
