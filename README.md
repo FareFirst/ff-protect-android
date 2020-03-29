@@ -8,7 +8,13 @@ FF protect is an open-source voluntary tracker app installed on a mobile phone r
 * Process and give basic insight to govt officials based on the data collected.
 * Give raw data access to data scientists to extract scenario based insights and trackable information.
 
-## Presentation & Project status
+## Why? How? Demo?
+Please watch this short video by FareFirst team: https://youtu.be/mHnu5omVSKw
+
+## Download the production ready apk for android phones
+https://github.com/FareFirst/ff-protect-android/blob/master/releases/FF_Protect_0102.apk
+
+## Presentation Slides & Project status
 https://drive.google.com/file/d/12rhzLw8JOXYogY40fY3Lqna4d0_pSHMU/view?usp=sharing
 
 ## Privacy / Security
@@ -16,6 +22,12 @@ https://drive.google.com/file/d/12rhzLw8JOXYogY40fY3Lqna4d0_pSHMU/view?usp=shari
 * The server storing this data will be secure with all the govt mandated specifications. (preferably google cloud mumbai region)
 * The stored data can be decrypted only with the private key from the govt.
 * Mobile number and any user identifiable details need another private key from the govt to decrypt once those set of users come under the radar.
+
+## Description
+With the growing need for a contact tracing solution which could help the efforts to break the chain of infection, resulting in effective containment of contagious infections such as the ongoing COVID-19 , the FareFirst team has come up with a complete tracking system and made it open-source a week back. 
+
+This solution needs you to just install the app and sign up. The app collects Bluetooth and optinally Location signals in the background. With Bluetooth low energy technology we can calculate the exact distance between users and also the duration of exposure to each other. This data can be utilized by the officials to create an accurate contact tracing map in case of an outbreak.  The solution is completely encrypted and anonymized . Please share this solution with your government officials and let’s fight the pandemic together.
+
 
 ## Journey
 
